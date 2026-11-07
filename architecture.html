@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>System Architecture &amp; Clean Boundaries — Tiny Robot Lab</title>
+  <meta name="description" content="Detailed system architecture and Clean Architecture layer boundaries of Tiny Robot Lab: separating domain logic from Redis, Docker, and AI providers.">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="System Architecture &amp; Clean Boundaries — Tiny Robot Lab">
+  <meta property="og:description" content="Detailed system architecture and Clean Architecture layer boundaries of Tiny Robot Lab: separating domain logic from Redis, Docker, and AI providers.">
+  <meta property="og:url" content="https://lab.tinyrobotlab.com/architecture.html">
+  <meta property="og:image" content="assets/logo.png">
+
+  <!-- Favicon Assets -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home">
+        <img src="assets/logo.png" alt="Tiny Robot Lab Logo" class="brand-logo-img" width="40" height="40">
+        <div class="brand-text-block">
+          <span class="brand-name">Tiny Robot Lab</span>
+          <span class="brand-tag">Learning Project</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="how-it-works.html" class="nav-item">How It Works</a>
+        <a href="architecture.html" class="nav-item active" aria-current="page">Architecture</a>
+        <a href="learning.html" class="nav-item">Learning</a>
+        <a href="roadmap.html" class="nav-item">Roadmap</a>
+        <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="nav-item" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://lab.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
+          <span>Launch Lab</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <header class="page-header">
+        <p class="section-label">System Design</p>
+        <h1>System Architecture &amp; Clean Boundaries</h1>
+        <p class="page-lead">
+          Tiny Robot Lab enforces Clean Architecture with strict inward dependency rules. External frameworks, transport brokers, and remote AI providers are adapters around stable domain rules and application use cases.
+        </p>
+      </header>
+
+      <!-- Architecture Vector Diagram -->
+      <section class="section" style="border-top: none; padding-top: 0;">
+        <div class="section-header">
+          <p class="section-label">Visual Diagram</p>
+          <h2 class="section-title">End-to-End System Topology</h2>
+          <p class="section-lead">
+            The full runtime architecture spanning the operator browser, Prototype Console SPA, Orchestrator service, Redis transport, General Worker, and Research Agent microservices.
+          </p>
+        </div>
+
+        <figure class="architecture-frame">
+          <img src="assets/architecture.svg" alt="Autonomous Agent Lab System Architecture Diagram showing Console, Orchestrator, Redis, General Worker, and Research Agent" class="architecture-img" width="1200" height="960" loading="lazy">
+          <figcaption class="arch-caption">
+            <span>Figure 1: Full system architecture — Capability routing, Redis queues &amp; streams, and grounded inference.</span>
+            <a href="assets/architecture.svg" target="_blank" rel="noopener noreferrer">Open full vector SVG diagram ↗</a>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Clean Architecture Layers -->
+      <section class="section">
+        <div class="section-header">
+          <p class="section-label">Layer Isolation</p>
+          <h2 class="section-title">The Four Architectural Layers</h2>
+          <p class="section-lead">
+            Dependencies point strictly inward: Presentation and Infrastructure depend on Application, which depends on Domain. The Domain depends on nothing.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">1</div>
+            <h3 class="card-title">Domain Layer</h3>
+            <p class="card-desc">
+              Pure entities and business invariants with zero framework dependencies. Contains data contracts like <code>Task</code>, <code>AgentCapability</code>, <code>RoutingDecision</code>, and the <code>EvidenceEvaluator</code> ranking logic. It can be tested instantly without network access or databases.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">2</div>
+            <h3 class="card-title">Application Layer</h3>
+            <p class="card-desc">
+              Coordinates workflows and orchestration use cases such as <code>SubmitTask</code> and <code>FindCandidatesQuery</code>. Defines abstract ports (interfaces like <code>TaskDispatcher</code> and <code>StateReader</code>) without knowing whether they are implemented by Redis, HTTP, or memory fakes.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">3</div>
+            <h3 class="card-title">Presentation Layer</h3>
+            <p class="card-desc">
+              The delivery mechanism: FastAPI routes (<code>/api/tasks</code>, <code>/api/agents</code>, <code>/health</code>) and the browser-based Prototype Console SPA. Never interacts directly with domain logic; it passes inputs to application use cases and renders returned views.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">4</div>
+            <h3 class="card-title">Infrastructure Layer</h3>
+            <p class="card-desc">
+              Houses concrete implementations of application ports: Redis list queues, Redis stream publishers, Tavily web search clients, and Cloudflare Workers AI inference connectors. Adapters can be replaced or mocked without modifying business rules.
+            </p>
+          </article>
+        </div>
+
+        <!-- Architectural Benefits -->
+        <div class="summary-box" style="margin-top: 36px;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 12px; color: var(--text-main);">Why This Matters for Autonomous Agents</h3>
+          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 14px;">
+            AI frameworks frequently blur the line between model prompts, network transport, and business rules. By strictly enforcing Clean Architecture boundaries:
+          </p>
+          <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; color: var(--text-muted);">
+            <li><strong>Replaceable AI Providers:</strong> We can switch from Cloudflare Workers AI to a local Ollama model or cloud API by writing an adapter—zero domain changes required.</li>
+            <li><strong>Fast Deterministic Testing:</strong> Fast deterministic automated testing without requiring live infrastructure or external APIs, using lightweight in-memory fake ports.</li>
+            <li><strong>Credential Isolation:</strong> All provider tokens remain strictly inside containerized infrastructure adapters and are never exposed to browser consoles or client payloads.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo-row">
+            <img src="assets/logo.png" alt="Tiny Robot Lab" class="footer-logo-img" width="28" height="28">
+            <span class="footer-brand-title">Tiny Robot Lab</span>
+          </div>
+          <p class="footer-desc">
+            A non-commercial learning project exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <p class="footer-links-title">Resources</p>
+          <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
+          <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Architecture SVG</a>
+        </div>
+
+        <div class="footer-links-group">
+          <p class="footer-links-title">Learning Pages</p>
+          <a href="how-it-works.html" class="footer-link">How It Works</a>
+          <a href="architecture.html" class="footer-link">Architecture</a>
+          <a href="learning.html" class="footer-link">Learning Philosophy</a>
+          <a href="roadmap.html" class="footer-link">Roadmap &amp; Limits</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Tiny Robot Lab • <a href="https://github.com/tomhalsan/autonomous-agent-lab" target="_blank" rel="noopener noreferrer">autonomous-agent-lab</a></span>
+        <span>Built for learning. No cookies, no trackers, no commercial claims.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+

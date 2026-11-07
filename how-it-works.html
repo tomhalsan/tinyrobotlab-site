@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Tiny Robot Works — Tiny Robot Lab</title>
+  <meta name="description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, availability tracking, and multi-stage research evidence evaluation.">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How Tiny Robot Works — Tiny Robot Lab">
+  <meta property="og:description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, availability tracking, and multi-stage research evidence evaluation.">
+  <meta property="og:url" content="https://lab.tinyrobotlab.com/how-it-works.html">
+  <meta property="og:image" content="assets/logo.png">
+
+  <!-- Favicon Assets -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home">
+        <img src="assets/logo.png" alt="Tiny Robot Lab Logo" class="brand-logo-img" width="40" height="40">
+        <div class="brand-text-block">
+          <span class="brand-name">Tiny Robot Lab</span>
+          <span class="brand-tag">Learning Project</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="how-it-works.html" class="nav-item active" aria-current="page">How It Works</a>
+        <a href="architecture.html" class="nav-item">Architecture</a>
+        <a href="learning.html" class="nav-item">Learning</a>
+        <a href="roadmap.html" class="nav-item">Roadmap</a>
+        <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="nav-item" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://lab.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
+          <span>Launch Lab</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <header class="page-header">
+        <p class="section-label">Runtime Mechanics</p>
+        <h1>How Tiny Robot Works</h1>
+        <p class="page-lead">
+          Every task submitted to the platform moves through an explicit, visible state machine rather than an undocumented prompt chain. Here is how capability discovery, availability evaluation, and evidence-conditioned research operate step by step.
+        </p>
+      </header>
+
+      <!-- Section 1: Orchestration Flow -->
+      <section class="section" style="border-top: none; padding-top: 0;">
+        <div class="section-header">
+          <p class="section-label">Step-by-Step Flow</p>
+          <h2 class="section-title">1. Capability-Driven Task Dispatch</h2>
+          <p class="section-lead">
+            In static systems, tasks are dumped into hardcoded worker queues. Tiny Robot Lab replaces static queues with dynamic candidate discovery and runtime availability checks.
+          </p>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-block-header">
+            <h3 class="flow-block-title">The 7-Stage Dispatch Lifecycle</h3>
+            <span class="badge-tag">Platform Foundation</span>
+          </div>
+          <div class="flow-steps">
+            <div class="flow-step"><span class="step-num">1</span> Prompt Input</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">2</span> Determine Capability</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">3</span> Candidate Discovery</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">4</span> Availability Check</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">5</span> Deterministic Routing</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">6</span> Target Dispatch</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">7</span> Execution &amp; Result</div>
+          </div>
+          <div class="flow-explainer">
+            <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+              <li><strong>Prompt Input:</strong> An operator submits a natural-language task prompt via the Prototype Console or HTTP API.</li>
+              <li><strong>Capability Determination:</strong> The platform analyzes task intent and classifies the required capability (e.g., <code>general</code> or <code>research</code>).</li>
+              <li><strong>Candidate Discovery:</strong> The orchestrator queries registered agents to find all instances advertising support for the required capability.</li>
+              <li><strong>Availability Evaluation:</strong> Registered candidates are evaluated against liveness policies using heartbeat timestamps and execution state (distinguishing <code>ready</code>, <code>busy</code>, <code>stale</code>, and <code>offline</code>).</li>
+              <li><strong>Deterministic Routing:</strong> An eligible candidate is selected deterministically and an audit record of the routing decision is preserved.</li>
+              <li><strong>Target Dispatch:</strong> The task is dispatched to the chosen agent's dynamically advertised delivery target, with no assumed queue topology.</li>
+              <li><strong>Execution &amp; Result:</strong> The agent consumes the task, emits operational state transitions over Redis, and records the final output.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Research Execution Flow -->
+      <section class="section">
+        <div class="section-header">
+          <p class="section-label">Specialist Agent</p>
+          <h2 class="section-title">2. Grounded Research Execution Pipeline</h2>
+          <p class="section-lead">
+            When a task requires research, asking an LLM to search and summarize in a single prompt invites hallucinations and opaque failures. The Research Agent breaks execution into discrete, observable stages.
+          </p>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-block-header">
+            <h3 class="flow-block-title">Multi-Stage Evidence Pipeline</h3>
+            <span class="badge-tag">Research Agent</span>
+          </div>
+          <div class="flow-steps">
+            <div class="flow-step"><span class="step-num">1</span> Public Web Retrieval</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">2</span> Candidate Evidence</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">3</span> Quality Evaluation</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">4</span> Conditioned Synthesis</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">5</span> Attributed Findings</div>
+          </div>
+          <div class="flow-explainer">
+            <p style="margin-bottom: 12px;">
+              <strong>How evidence is evaluated and retained:</strong>
+            </p>
+            <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+              <li><strong>Retrieval:</strong> The research query is sent to a web retrieval adapter (e.g., Tavily), returning raw search snippets and candidate URLs.</li>
+              <li><strong>Candidate Evidence Normalization:</strong> Each snippet is structured with its source URL, page title, textual snippet, and provider relevance indicators.</li>
+              <li><strong>Deterministic Evidence Evaluation:</strong> Before any generative LLM is invoked, pure Python domain logic scores evidence-ranking signals: domain authority tiers, topical keyword density, content length, and snippet freshness. Weak or irrelevant items are discarded.</li>
+              <li><strong>Conditioned Synthesis:</strong> The inference model receives strictly the retained evidence items and is instructed to synthesize findings based exclusively on those sources.</li>
+              <li><strong>Attributed Findings:</strong> The synthesized response includes structured source citations, allowing learners and operators to inspect which evidence drove each finding.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Terminology & Limitations Caveat -->
+        <div class="caveat-box" style="margin-top: 32px;">
+          <div class="caveat-heading">
+            <span aria-hidden="true">⚠️</span>
+            <span>Important Distinction: Evaluated Evidence vs. Factual Truth</span>
+          </div>
+          <ul class="caveat-list">
+            <li><strong>Evaluated evidence is not "verified proof."</strong> Our <code>EvidenceEvaluator</code> applies heuristic ranking signals (domain tier, keyword overlap, content length) to filter noise. It does not possess mathematical proof of factual accuracy.</li>
+            <li><strong>Cross-domain keyword overlap is not semantic corroboration.</strong> Two independent websites sharing similar vocabulary may simply be repeating the same press release or common phrasing.</li>
+            <li><strong>Retrieval quality is bounded by the provider.</strong> If the upstream retrieval API returns low-quality or irrelevant candidates, the downstream evaluation and synthesis cannot manufacture better source material.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section 3: Observability -->
+      <section class="section">
+        <div class="section-header">
+          <p class="section-label">Transparency</p>
+          <h2 class="section-title">3. Observable AI in Practice</h2>
+          <p class="section-lead">
+            Every transition is visible. Instead of wondering why a task was routed to an agent or why a candidate was skipped, the orchestrator records the decision context.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3 class="card-title">Routing Decisions</h3>
+            <p class="card-desc">
+              Every task dispatch logs the resolved capability, the candidate pool evaluated, candidate availability states, and the deterministic reason for selection.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Heartbeat Liveness</h3>
+            <p class="card-desc">
+              Agents emit periodic heartbeat signals. Stale agents (&gt;30s) and offline agents (&gt;90s) are automatically disqualified from work without restarting services.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">State &amp; Event Streams</h3>
+            <p class="card-desc">
+              Operational events (<code>idle</code>, <code>working</code>, <code>error</code>) stream over Redis Streams and Hashes, powering the real-time activity timeline in the Prototype Console.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo-row">
+            <img src="assets/logo.png" alt="Tiny Robot Lab" class="footer-logo-img" width="28" height="28">
+            <span class="footer-brand-title">Tiny Robot Lab</span>
+          </div>
+          <p class="footer-desc">
+            A non-commercial learning project exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <p class="footer-links-title">Resources</p>
+          <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
+          <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Architecture SVG</a>
+        </div>
+
+        <div class="footer-links-group">
+          <p class="footer-links-title">Learning Pages</p>
+          <a href="how-it-works.html" class="footer-link">How It Works</a>
+          <a href="architecture.html" class="footer-link">Architecture</a>
+          <a href="learning.html" class="footer-link">Learning Philosophy</a>
+          <a href="roadmap.html" class="footer-link">Roadmap &amp; Limits</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Tiny Robot Lab • <a href="https://github.com/tomhalsan/autonomous-agent-lab" target="_blank" rel="noopener noreferrer">autonomous-agent-lab</a></span>
+        <span>Built for learning. No cookies, no trackers, no commercial claims.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
