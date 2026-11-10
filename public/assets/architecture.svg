@@ -113,7 +113,7 @@
   <text x="635" y="685" fill="#334155" font-size="10px" font-weight="600" text-anchor="start" class="box-desc">Advertised Capability: 'research'  •  Target Queue: agent.tasks.research</text>
   <rect x="635" y="697" width="455" height="50" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
   <text x="862.5" y="717" fill="#0f172a" font-size="11px" font-weight="600" text-anchor="middle" class="box-title">ResearchProcessor (Multi-Step Pipeline)  •  HeartbeatRunner (10s pulse)</text>
-  <text x="862.5" y="733" fill="#64748b" font-size="9.5px" font-weight="normal" text-anchor="middle" class="box-desc">Grounded Search (Tavily)  •  LLM Synthesis with Citations (Cloudflare)</text>
+  <text x="862.5" y="733" fill="#64748b" font-size="9.5px" font-weight="normal" text-anchor="middle" class="box-desc">Grounded Search (Tavily)  •  LLM Synthesis with Citations (Cloudflare • Gemini)</text>
   <path d="M 337.5 760 L 337.5 805" fill="none" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arr-orange)" />
   <rect x="287.5" y="774.5" width="100" height="16" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="1" />
   <text x="337.5" y="785.5" fill="#9a3412" font-size="9px" font-weight="600" text-anchor="middle" class="connector-label">Inference Calls</text>
@@ -127,13 +127,13 @@
   <text x="110" y="825" fill="#9a3412" font-size="11.5px" font-weight="700" text-anchor="start" class="container-title">EXTERNAL PROVIDER BOUNDARIES (Pluggable Cloud APIs • Isolated Credentials)</text>
   <rect x="110" y="835" width="455" height="52" rx="6" fill="#ffffff" stroke="#fed7aa" stroke-width="1" />
   <text x="337.5" y="856" fill="#9a3412" font-size="11.5px" font-weight="600" text-anchor="middle" class="box-title">Inference Provider Boundary</text>
-  <text x="337.5" y="873" fill="#475569" font-size="10px" font-weight="normal" text-anchor="middle" class="box-desc">StubInferenceProvider / Pluggable LLM Inference API</text>
+  <text x="337.5" y="873" fill="#475569" font-size="10px" font-weight="normal" text-anchor="middle" class="box-desc">Provider-Neutral Adapters (Cloudflare Workers AI • Google Gemini • Stubs)</text>
   <rect x="590" y="835" width="250" height="52" rx="6" fill="#ffffff" stroke="#f97316" stroke-width="1.5" />
   <text x="715" y="856" fill="#c2410c" font-size="11.5px" font-weight="700" text-anchor="middle" class="box-title">Tavily Search API</text>
   <text x="715" y="873" fill="#475569" font-size="10px" font-weight="normal" text-anchor="middle" class="box-desc">Grounded Web Retrieval &amp; Clean Citations</text>
   <rect x="860" y="835" width="250" height="52" rx="6" fill="#ffffff" stroke="#f97316" stroke-width="1.5" />
-  <text x="985" y="856" fill="#c2410c" font-size="11.5px" font-weight="700" text-anchor="middle" class="box-title">Cloudflare Workers AI</text>
-  <text x="985" y="873" fill="#475569" font-size="10px" font-weight="normal" text-anchor="middle" class="box-desc">@cf/meta/llama-3.1-8b-instruct (1024 tokens)</text>
+  <text x="985" y="854" fill="#c2410c" font-size="11px" font-weight="700" text-anchor="middle" class="box-title">Cloudflare Workers AI • Google Gemini</text>
+  <text x="985" y="872" fill="#475569" font-size="9.5px" font-weight="normal" text-anchor="middle" class="box-desc">Provider-Neutral Cloud Inference Adapters</text>
   <rect x="90" y="915" width="1020" height="36" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" />
   <rect x="115" y="925" width="16" height="16" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1" />
   <text x="139" y="937" fill="#334155" font-size="10px" font-weight="600" text-anchor="start" class="legend-label">Presentation</text>

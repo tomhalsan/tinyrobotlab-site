@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Current Capabilities &amp; Roadmap — Tiny Robot Lab</title>
-  <meta name="description" content="A factual overview of Tiny Robot Lab v0.3.0 capabilities, honest evaluation limitations, and our planned v0.4.0 roadmap in multi-provider inference.">
-  
+  <meta name="description" content="A factual overview of Tiny Robot Lab v0.4.0 capabilities, honest evaluation limitations, and our planned v0.5.0 roadmap for tool-using agents.">
+
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Current Capabilities &amp; Roadmap — Tiny Robot Lab">
-  <meta property="og:description" content="A factual overview of Tiny Robot Lab v0.3.0 capabilities, honest evaluation limitations, and our planned v0.4.0 roadmap in multi-provider inference.">
+  <meta property="og:description" content="A factual overview of Tiny Robot Lab v0.4.0 capabilities, honest evaluation limitations, and our planned v0.5.0 roadmap for tool-using agents.">
   <meta property="og:url" content="https://lab.tinyrobotlab.com/roadmap.html">
   <meta property="og:image" content="assets/logo.png">
 
@@ -56,7 +56,7 @@
         <p class="section-label">Platform State &amp; Direction</p>
         <h1>Current Capabilities &amp; Roadmap</h1>
         <p class="page-lead">
-          We believe in presenting capabilities factually based on running code and test suites. Here is an honest accounting of what is currently implemented in v0.3.0, our architectural limitations, and our planned research experiments for v0.4.0.
+          We believe in presenting capabilities factually based on running code and test suites. Here is an honest accounting of what is currently implemented in v0.4.0, our architectural limitations, and our planned direction for v0.5.0.
         </p>
       </header>
 
@@ -64,13 +64,62 @@
       <section class="section" style="border-top: none; padding-top: 0;">
         <div class="section-header">
           <p class="section-label">Current Baseline</p>
-          <h2 class="section-title">Current Release: v0.3.0 — Dynamic Orchestration</h2>
+          <h2 class="section-title">Current Release: v0.4.0 — Resilient Multi-Provider Inference</h2>
           <p class="section-lead">
-            The platform currently demonstrates the following capabilities across 401 passing tests in the repository:
+            The v0.4.0 release was gated with 940 automated tests passing in the repository:
           </p>
         </div>
 
         <div class="card-grid">
+          <div class="card">
+            <h3 class="card-title">Provider-Neutral Inference</h3>
+            <p class="card-desc">
+              Standardized domain contracts and failure hierarchies abstract model providers. Worker completions and Research Agent synthesis operate through interchangeable ports.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Multiple Real Providers</h3>
+            <p class="card-desc">
+              Google Gemini and Cloudflare Workers AI integrated as concrete cloud adapters alongside deterministic stubs, eliminating single-vendor runtime dependencies.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Deterministic Provider Selection</h3>
+            <p class="card-desc">
+              Configured priority chains evaluated against point-in-time health snapshots observed concurrently per task. Verified healthy providers are ranked first, and unknown states are strictly excluded.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Graceful Inference Fallback</h3>
+            <p class="card-desc">
+              Transparent, automated traversal to the next configured candidate when a fallback-eligible provider failure occurs, avoiding task abortion.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Per-Attempt Telemetry</h3>
+            <p class="card-desc">
+              Every invocation emits exactly one structured record capturing provider name, model, invocation latency in milliseconds, attempt index, and sanitized status.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Fallback &amp; Failure Verification</h3>
+            <p class="card-desc">
+              Deterministic simulation test suites verifying provider health evaluation, candidate ranking, fallback traversal, error classification, and terminal failure handling.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Prototype Console Observability</h3>
+            <p class="card-desc">
+              Browser console displays configured provider priority chains, successful provider/model/latency/attempt metadata, highlighted fallback transition events, and truthful indication that health is evaluated per task.
+            </p>
+          </div>
+
           <div class="card">
             <h3 class="card-title">Dynamic Candidate Discovery</h3>
             <p class="card-desc">
@@ -102,14 +151,14 @@
           <div class="card">
             <h3 class="card-title">Clean Architecture</h3>
             <p class="card-desc">
-              Inward dependency direction keeping domain logic completely decoupled from Redis, Docker, Tavily search, and Cloudflare Workers AI.
+              Inward dependency direction keeping domain logic completely decoupled from Redis, Docker, Tavily search, and specific AI inference providers.
             </p>
           </div>
 
           <div class="card">
-            <h3 class="card-title">401 Automated Tests</h3>
+            <h3 class="card-title">v0.4.0 Release Gate (940 Tests)</h3>
             <p class="card-desc">
-              Comprehensive test suite covering unit logic, domain invariants, application use cases, contracts, concurrent heartbeats, and web presentation deterministically without external services.
+              The v0.4.0 release was verified by 940 automated tests covering unit logic, domain invariants, application use cases, contracts, concurrent heartbeats, fallback loops, and web presentation deterministically without external services.
             </p>
           </div>
         </div>
@@ -128,7 +177,7 @@
         <div class="caveat-box">
           <div class="caveat-heading">
             <span aria-hidden="true">⚠️</span>
-            <span>Technical Realities of Our Heuristics</span>
+            <span>Technical Realities of Our Heuristics &amp; Infrastructure</span>
           </div>
           <ul class="caveat-list">
             <li>
@@ -141,50 +190,59 @@
               <strong>Retrieval quality is bounded by the search provider.</strong> The Research Agent's output is strictly limited by the snippets returned by the retrieval API (Tavily). If search returns irrelevant data, synthesis cannot fix it.
             </li>
             <li>
+              <strong>Provider health is evaluated per task, not continuously persisted.</strong> The platform probes configured providers concurrently before each inference task rather than maintaining a background health daemon, persistent cache, or TTL system.
+            </li>
+            <li>
+              <strong>Operational telemetry is a sliding-window stream, not permanent analytics storage.</strong> In-flight attempt telemetry and fallback transition events stream asynchronously to Redis for live observability and are not retained as a durable data warehouse.
+            </li>
+            <li>
+              <strong>Local inference experiments are not production capabilities.</strong> Prior CPU and Vulkan benchmarks were exploratory experiments. Lightweight and accelerated local inference provider adapters are deferred to the v0.9.0 Hardened Generic Prototype milestone.
+            </li>
+            <li>
               <strong>Non-commercial experimental scope.</strong> This lab is designed to study distributed agent lifecycles, orchestration, and observability. It is not an enterprise product, marketing tool, or commercial SaaS.
             </li>
           </ul>
         </div>
       </section>
 
-      <!-- Section 3: What's Next / v0.4.0 -->
+      <!-- Section 3: What's Next / v0.5.0 -->
       <section class="section">
         <div class="next-card">
           <div class="next-header">
             <div>
               <p class="section-label">Roadmap Direction</p>
-              <h2 class="next-title">v0.4.0 — Resilient Multi-Provider Inference</h2>
+              <h2 class="next-title">v0.5.0 — Tool-Using Agents</h2>
             </div>
             <span class="badge-tag">Planned Milestone</span>
           </div>
           <p class="card-desc">
-            Our next learning cycle explores making autonomous agents resilient against provider outages, latency spikes, and single-vendor lock-in.
+            Allow agents to use discoverable tools instead of being limited to integrations explicitly embedded into each agent implementation.
           </p>
 
           <div class="next-list">
             <div class="next-item">
-              <h3 class="next-item-title">Local Ollama-Assisted Routing</h3>
+              <h3 class="next-item-title">Standardized Capability Boundaries</h3>
               <p class="next-item-desc">
-                Investigating small local quantized models running on developer machines to classify prompt intent and assist routing without cloud API roundtrips.
+                Investigating provider-neutral tool interfaces so capabilities can be discovered dynamically across agents.
               </p>
             </div>
             <div class="next-item">
-              <h3 class="next-item-title">Provider-Neutral Research Retrieval</h3>
+              <h3 class="next-item-title">Autonomous Tool Selection</h3>
               <p class="next-item-desc">
-                Abstracting search providers so multiple web indexes and domain-specific databases can be queried interchangeably.
+                Enabling specialist agents to evaluate, select, and invoke tools as needed rather than hardcoding integrations.
               </p>
             </div>
             <div class="next-item">
-              <h3 class="next-item-title">Empirical Quality Measurement</h3>
+              <h3 class="next-item-title">Milestone Outcome</h3>
               <p class="next-item-desc">
-                Measuring model latency, evidence adherence, and hallucination rates across diverse models rather than assuming any single provider is optimal.
+                Agents can select and invoke tools through standardized capability boundaries rather than requiring each integration to be permanently embedded into an agent.
               </p>
             </div>
           </div>
 
           <div style="margin-top: 24px; padding: 12px 16px; background: rgba(7, 13, 24, 0.7); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);">
             <p style="font-size: 0.8125rem; color: var(--text-faint); font-family: var(--font-mono); margin: 0;">
-              * Roadmap Note: The capabilities listed under v0.4.0 represent planned learning experiments and research directions. They are not yet implemented in the current v0.3.0 release.
+              * Roadmap Note: v0.5.0 represents a planned architectural milestone from repository roadmap evidence. It is not yet implemented in the current v0.4.0 release.
             </p>
           </div>
         </div>
@@ -210,7 +268,8 @@
           <p class="footer-links-title">Resources</p>
           <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Architecture SVG</a>
+          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
+          <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
         </div>
 
         <div class="footer-links-group">
@@ -230,4 +289,3 @@
   </footer>
 </body>
 </html>
-

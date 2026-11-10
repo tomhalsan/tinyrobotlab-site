@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How Tiny Robot Works — Tiny Robot Lab</title>
-  <meta name="description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, availability tracking, and multi-stage research evidence evaluation.">
-  
+  <meta name="description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, multi-stage research evidence evaluation, and resilient multi-provider inference with fallback.">
+
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="How Tiny Robot Works — Tiny Robot Lab">
-  <meta property="og:description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, availability tracking, and multi-stage research evidence evaluation.">
+  <meta property="og:description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, multi-stage research evidence evaluation, and resilient multi-provider inference with fallback.">
   <meta property="og:url" content="https://lab.tinyrobotlab.com/how-it-works.html">
   <meta property="og:image" content="assets/logo.png">
 
@@ -158,13 +158,67 @@
         </div>
       </section>
 
-      <!-- Section 3: Observability -->
+      <!-- Section 3: Multi-Provider Inference & Fallback Flow -->
+      <section class="section">
+        <div class="section-header">
+          <p class="section-label">Resilience Loop</p>
+          <h2 class="section-title">3. Resilient Multi-Provider Inference &amp; Fallback</h2>
+          <p class="section-lead">
+            Relying on a single AI provider creates an immediate single point of failure. When an agent requires inference, it evaluates an ordered priority chain of configured providers with automatic, graceful fallback.
+          </p>
+        </div>
+
+        <div class="flow-block">
+          <div class="flow-block-header">
+            <h3 class="flow-block-title">The Inference Lifecycle</h3>
+            <span class="badge-tag">v0.4.0 Architecture</span>
+          </div>
+          <div class="flow-steps">
+            <div class="flow-step"><span class="step-num">1</span> Configured Providers</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">2</span> Per-Task Health</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">3</span> Deterministic Selection</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">4</span> Provider Invocation</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">5</span> Fallback or Success</div>
+            <div class="flow-arrow" aria-hidden="true">→</div>
+            <div class="flow-step"><span class="step-num">6</span> Result &amp; Telemetry</div>
+          </div>
+          <div class="flow-explainer">
+            <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+              <li><strong>Configured Priority Chain:</strong> Providers are configured in preference order (e.g., <code>Provider A → Provider B</code>). Concrete provider instances are validated at service startup without performing premature inference calls.</li>
+              <li><strong>Per-Task Health Observation:</strong> Before candidate selection, the agent probes configured providers concurrently with bounded timeouts. Probes return authentic point-in-time snapshots; failed or timed-out probes yield no snapshot.</li>
+              <li><strong>Deterministic Provider Selection:</strong> Verified healthy providers are ranked first in configured priority order. Providers that are unavailable or unknown are excluded from selection.</li>
+              <li><strong>Provider Invocation:</strong> The agent invokes the top candidate to generate completions or synthesize research findings. Latency is measured strictly around the provider network call.</li>
+              <li><strong>Success or Eligible Fallback:</strong> If the model call succeeds, the result is processed immediately. If a fallback-eligible provider failure occurs and another candidate is available, execution advances to the next provider in the fallback loop.</li>
+              <li><strong>Result &amp; Operational Telemetry:</strong> Each invocation emits exactly one attempt telemetry record over Redis, and provider transitions publish fallback events. If all candidates are exhausted or an ineligible error occurs, execution terminates with a clean error.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Truthfulness Distinction -->
+        <div class="caveat-box" style="margin-top: 32px;">
+          <div class="caveat-heading">
+            <span aria-hidden="true">💡</span>
+            <span>Core Architectural Truths</span>
+          </div>
+          <ul class="caveat-list">
+            <li><strong>Configured ≠ Healthy.</strong> Static presence in configuration proves only that credentials or options were provided at startup. It does not prove the remote endpoint is currently reachable.</li>
+            <li><strong>Selected ≠ Successful.</strong> Ranking as the top candidate does not guarantee inference will succeed. Live network drops and upstream capacity spikes can happen at any moment.</li>
+            <li><strong>Unknown ≠ Healthy.</strong> If a health probe times out or fails, health remains unknown. The platform never assumes or fabricates a healthy state.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section 4: Observability -->
       <section class="section">
         <div class="section-header">
           <p class="section-label">Transparency</p>
-          <h2 class="section-title">3. Observable AI in Practice</h2>
+          <h2 class="section-title">4. Observable AI in Practice</h2>
           <p class="section-lead">
-            Every transition is visible. Instead of wondering why a task was routed to an agent or why a candidate was skipped, the orchestrator records the decision context.
+            Every transition is visible. Instead of wondering why a task was routed to an agent, which inference provider was used, or why a candidate was skipped, the platform records structured decision and execution context.
           </p>
         </div>
 
@@ -182,9 +236,27 @@
             </p>
           </div>
           <div class="card">
+            <h3 class="card-title">Inference Attempt Telemetry</h3>
+            <p class="card-desc">
+              Every provider invocation emits a structured telemetry record capturing provider name, model, invocation latency in milliseconds, attempt index, and sanitized status.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Fallback Transition Events</h3>
+            <p class="card-desc">
+              When execution switches from a failed provider to a backup candidate, a structured fallback event captures the transition, displayed live in the Prototype Console activity timeline.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Task Result Metadata</h3>
+            <p class="card-desc">
+              Successful task results display formatted markdown, attributed citation links, and execution metadata showing the successful provider, model (when known), latency, and attempt number.
+            </p>
+          </div>
+          <div class="card">
             <h3 class="card-title">State &amp; Event Streams</h3>
             <p class="card-desc">
-              Operational events (<code>idle</code>, <code>working</code>, <code>error</code>) stream over Redis Streams and Hashes, powering the real-time activity timeline in the Prototype Console.
+              Operational events stream asynchronously over Redis Streams and Hashes for live browser observability without blocking or slowing task execution.
             </p>
           </div>
         </div>
@@ -210,7 +282,8 @@
           <p class="footer-links-title">Resources</p>
           <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Architecture SVG</a>
+          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
+          <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
         </div>
 
         <div class="footer-links-group">
@@ -230,4 +303,3 @@
   </footer>
 </body>
 </html>
-
