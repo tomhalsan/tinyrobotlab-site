@@ -187,6 +187,10 @@ a:hover {
   text-transform: uppercase;
 }
 
+.nav-toggle {
+  display: none;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -928,8 +932,92 @@ a:hover {
   .philosophy-grid {
     grid-template-columns: 1fr;
   }
-  .nav-item-desktop {
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-toggle:hover {
+    border-color: var(--border-accent);
+    color: var(--accent-cyan);
+    background: rgba(56, 189, 248, 0.1);
+  }
+  .nav-toggle:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+  }
+  .nav-toggle .close-icon {
     display: none;
+  }
+  .nav-toggle[aria-expanded="true"] .menu-icon {
+    display: none;
+  }
+  .nav-toggle[aria-expanded="true"] .close-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(7, 13, 24, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 24px 20px;
+    gap: 6px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  .nav-links .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-links .nav-item:hover {
+    background: rgba(56, 189, 248, 0.08);
+    color: var(--text-main);
+  }
+  .nav-links .nav-item.active,
+  .nav-links .nav-item[aria-current="page"] {
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-cyan);
+    border-left: 3px solid var(--accent-cyan);
+    font-weight: 600;
+  }
+  .nav-links .nav-item.active::after,
+  .nav-links .nav-item[aria-current="page"]::after {
+    display: none;
+  }
+
+  .nav-links .nav-btn {
+    margin-top: 8px;
+    justify-content: center;
+    padding: 12px 16px;
+    font-size: 0.9375rem;
+    width: 100%;
   }
 }
 
