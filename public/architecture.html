@@ -19,8 +19,9 @@
   <link rel="shortcut icon" href="assets/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-  <!-- Stylesheet -->
+  <!-- Stylesheet & Scripts -->
   <link rel="stylesheet" href="styles.css">
+  <script src="nav.js" defer></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -36,7 +37,19 @@
         </div>
       </a>
 
-      <nav class="nav-links" aria-label="Main Navigation">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+        <svg class="nav-icon menu-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+        <svg class="nav-icon close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <nav id="primary-nav" class="nav-links" aria-label="Main Navigation">
         <a href="how-it-works.html" class="nav-item">How It Works</a>
         <a href="architecture.html" class="nav-item active" aria-current="page">Architecture</a>
         <a href="learning.html" class="nav-item">Learning</a>
