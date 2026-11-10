@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>System Architecture &amp; Clean Boundaries — Tiny Robot Lab</title>
   <meta name="description" content="Detailed system architecture and Clean Architecture layer boundaries of Tiny Robot Lab: separating domain logic from Redis, Docker, and AI providers.">
-  
+
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="System Architecture &amp; Clean Boundaries — Tiny Robot Lab">
@@ -77,6 +77,22 @@
             <a href="assets/architecture.svg" target="_blank" rel="noopener noreferrer">Open full vector SVG diagram ↗</a>
           </figcaption>
         </figure>
+
+        <div class="section-header" style="margin-top: 48px;">
+          <p class="section-label">Visual Diagram</p>
+          <h2 class="section-title">Inference Provider Selection &amp; Fallback Flow</h2>
+          <p class="section-lead">
+            The v0.4.0 inference resilience loop spanning concurrent health checks, deterministic candidate ranking, provider invocation, fallback retry loops, and parallel operational telemetry streams.
+          </p>
+        </div>
+
+        <figure class="architecture-frame">
+          <img src="assets/inference-provider-flow.svg" alt="Tiny Agent Lab Inference Provider Selection, Fallback, and Telemetry Flow Diagram" class="architecture-img" width="1440" height="840" loading="lazy">
+          <figcaption class="arch-caption">
+            <span>Figure 2: Subsystem architecture — The autonomous agent inference resilience loop (v0.4.0).</span>
+            <a href="assets/inference-provider-flow.svg" target="_blank" rel="noopener noreferrer">Open full vector SVG diagram ↗</a>
+          </figcaption>
+        </figure>
       </section>
 
       <!-- Clean Architecture Layers -->
@@ -118,7 +134,7 @@
             <div class="card-icon" aria-hidden="true">4</div>
             <h3 class="card-title">Infrastructure Layer</h3>
             <p class="card-desc">
-              Houses concrete implementations of application ports: Redis list queues, Redis stream publishers, Tavily web search clients, and Cloudflare Workers AI inference connectors. Adapters can be replaced or mocked without modifying business rules.
+              Houses concrete implementations of application ports: Redis list queues, Redis stream publishers, Tavily web search clients, and provider-neutral inference connectors for Google Gemini and Cloudflare Workers AI. Adapters can be replaced or mocked without modifying business rules.
             </p>
           </article>
         </div>
@@ -130,8 +146,9 @@
             AI frameworks frequently blur the line between model prompts, network transport, and business rules. By strictly enforcing Clean Architecture boundaries:
           </p>
           <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; color: var(--text-muted);">
-            <li><strong>Replaceable AI Providers:</strong> We can switch from Cloudflare Workers AI to a local Ollama model or cloud API by writing an adapter—zero domain changes required.</li>
-            <li><strong>Fast Deterministic Testing:</strong> Fast deterministic automated testing without requiring live infrastructure or external APIs, using lightweight in-memory fake ports.</li>
+            <li><strong>Replaceable AI Providers:</strong> Cloudflare Workers AI and Google Gemini demonstrate replaceable inference adapters behind shared application boundaries without changing existing domain rules.</li>
+            <li><strong>Graceful Provider Fallback:</strong> Agents can automatically traverse configured provider priority chains during fallback-eligible provider failures while preserving strict domain boundaries.</li>
+            <li><strong>Fast Deterministic Testing:</strong> The v0.4.0 release was gated with 940 automated tests running deterministically without requiring live infrastructure or external APIs, using lightweight in-memory fake ports and failure simulation adapters.</li>
             <li><strong>Credential Isolation:</strong> All provider tokens remain strictly inside containerized infrastructure adapters and are never exposed to browser consoles or client payloads.</li>
           </ul>
         </div>
@@ -157,7 +174,8 @@
           <p class="footer-links-title">Resources</p>
           <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Architecture SVG</a>
+          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
+          <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
         </div>
 
         <div class="footer-links-group">
@@ -177,4 +195,3 @@
   </footer>
 </body>
 </html>
-

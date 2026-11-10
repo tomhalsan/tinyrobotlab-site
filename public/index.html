@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tiny Robot Lab — Learn AI by building it</title>
   <meta name="description" content="A hands-on, non-commercial learning lab exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.">
-  
+
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Tiny Robot Lab — Learn AI by building it">
@@ -57,13 +57,13 @@
         <div class="hero-content">
           <div class="badge-version">
             <span class="badge-dot" aria-hidden="true"></span>
-            <span>v0.3.0 — Dynamic Orchestration</span>
+            <span>v0.4.0 — Resilient Multi-Provider Inference</span>
           </div>
 
           <h1>Tiny Robot Lab</h1>
           <p class="hero-phrase">Learn AI by building it.</p>
           <p class="hero-desc">
-            A hands-on, non-commercial learning lab designed to explore how autonomous agents, dynamic orchestration, grounded research, runtime observability, and Clean Architecture work in practice. No black boxes, no marketing hype—just working code and honest engineering tradeoffs.
+            A hands-on, non-commercial learning lab designed to explore how autonomous agents, dynamic orchestration, resilient multi-provider inference with graceful fallback, runtime observability, and Clean Architecture work in practice. No black boxes, no marketing hype—just working code and honest engineering tradeoffs.
           </p>
 
           <div class="hero-actions">
@@ -92,7 +92,7 @@
           <p class="section-label">Why This Exists</p>
           <h2 style="font-size: 1.5rem; margin-bottom: 12px;">Hands-On Engineering Over Abstract Descriptions</h2>
           <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-muted); max-width: 900px;">
-            Modern autonomous agents are often described with commercial hype or buried inside monolithic frameworks. Tiny Robot Lab was created to deconstruct these concepts by implementing them from scratch: asynchronous messaging queues, dynamic capability registration, heartbeat liveness policies, evidence-conditioned synthesis, and provider-neutral Clean Architecture boundaries.
+            Modern autonomous agents are often described with commercial hype or buried inside monolithic frameworks. Tiny Robot Lab was created to deconstruct these concepts by implementing them from scratch: asynchronous messaging queues, dynamic capability registration, heartbeat liveness policies, evidence-conditioned synthesis, provider-neutral inference fallback across multiple backends, and Clean Architecture boundaries.
           </p>
         </div>
       </div>
@@ -141,7 +141,7 @@
             <div class="card-icon" aria-hidden="true">🗺️</div>
             <h3>Roadmap &amp; Limits</h3>
             <p>
-              A factual breakdown of current v0.3.0 capabilities, honest evaluation caveats, and our planned v0.4.0 experiments in resilient multi-provider inference.
+              A factual breakdown of released v0.4.0 capabilities, honest evaluation caveats, and our planned v0.5.0 roadmap for tool-using agents.
             </p>
             <span class="card-action">See Current State <span aria-hidden="true">→</span></span>
           </a>
@@ -156,32 +156,32 @@
           <p class="section-label">Live Platform</p>
           <h2 class="section-title">Current Lab at a Glance</h2>
           <p class="section-lead">
-            Everything documented here is running code backed by 401 passing tests in the repository.
+            The v0.4.0 release was gated with 940 automated tests passing in the repository.
           </p>
         </div>
 
         <div class="facts-grid">
           <div class="fact-card">
-            <div class="fact-metric">v0.3.0</div>
-            <h3 class="fact-title">Dynamic Orchestration</h3>
+            <div class="fact-metric">v0.4.0</div>
+            <h3 class="fact-title">Resilient Multi-Provider</h3>
             <p class="fact-desc">
-              Runtime capability discovery and advertised queue targets replace hardcoded execution topology.
+              Provider-neutral inference with deterministic selection, graceful fallback across real cloud backends, and per-attempt telemetry.
             </p>
           </div>
 
           <div class="fact-card">
-            <div class="fact-metric">2 Agents</div>
-            <h3 class="fact-title">Specialist Microservices</h3>
+            <div class="fact-metric">2 Providers</div>
+            <h3 class="fact-title">Multiple Real Backends</h3>
             <p class="fact-desc">
-              General Worker and Research Agent running independently with dedicated queues and state streams.
+              Google Gemini and Cloudflare Workers AI integrated interchangeably without vendor-locked domain logic.
             </p>
           </div>
 
           <div class="fact-card">
-            <div class="fact-metric">401 Tests</div>
-            <h3 class="fact-title">Comprehensive Suite</h3>
+            <div class="fact-metric">940 Tests</div>
+            <h3 class="fact-title">v0.4.0 Release Gate</h3>
             <p class="fact-desc">
-              Unit, contract, use case, concurrency, and UI tests running deterministically without heavy external services.
+              Automated unit, contract, fallback traversal, failure simulation, and UI tests gating the v0.4.0 release without external dependencies.
             </p>
           </div>
 
@@ -189,7 +189,7 @@
             <div class="fact-metric">Live UI</div>
             <h3 class="fact-title">Prototype Console</h3>
             <p class="fact-desc">
-              Inspect agent readiness, live event logs, routing decisions, and attributed findings in real time.
+              Inspect agent states, provider priority chains, fallback transition events, execution latency, and attributed findings.
             </p>
           </div>
         </div>
@@ -222,7 +222,8 @@
           <p class="footer-links-title">Resources</p>
           <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Architecture SVG</a>
+          <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
+          <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
         </div>
 
         <div class="footer-links-group">
