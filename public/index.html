@@ -3,37 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tiny Robot Lab — Learn AI by building it</title>
-  <meta name="description" content="A hands-on, non-commercial learning lab exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.">
+  <title>Tiny Robot Lab — Engineering notes from a learning project</title>
+  <meta name="description" content="I build things to understand how they work. Tiny Robot Lab is my learning notebook; Tiny Agent Lab is my current autonomous-agent project.">
 
-  <!-- Open Graph / Meta -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Tiny Robot Lab — Learn AI by building it">
-  <meta property="og:description" content="Hands-on learning lab exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.">
-  <meta property="og:url" content="https://lab.tinyrobotlab.com">
+  <meta property="og:title" content="Tiny Robot Lab — Engineering notes from a learning project">
+  <meta property="og:description" content="Tiny Robot Lab is where I build things to understand how they work. My current project is Tiny Agent Lab, an autonomous-agent learning project.">
+  <meta property="og:url" content="https://tinyrobotlab.com">
   <meta property="og:image" content="assets/logo.png">
 
-  <!-- Favicon Assets -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
   <link rel="shortcut icon" href="assets/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="home-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Header -->
   <header class="site-header">
     <div class="container nav-wrap">
-      <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home">
-        <img src="assets/logo.png" alt="Tiny Robot Lab Logo" class="brand-logo-img" width="40" height="40">
-        <div class="brand-text-block">
-          <span class="brand-name">Tiny Robot Lab</span>
-          <span class="brand-tag">Learning Project</span>
-        </div>
+      <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home" aria-current="page">
+        <img src="assets/logo.png" alt="" class="brand-logo-img" width="40" height="40">
+        <span class="brand-name">Tiny Robot Lab</span>
       </a>
 
       <nav class="nav-links" aria-label="Main Navigation">
@@ -42,8 +34,8 @@
         <a href="learning.html" class="nav-item">Learning</a>
         <a href="roadmap.html" class="nav-item">Roadmap</a>
         <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="nav-item" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://lab.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
-          <span>Launch Lab</span>
+        <a href="https://agents.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
+          <span>Open Tiny Agent Lab</span>
           <span aria-hidden="true">→</span>
         </a>
       </nav>
@@ -51,176 +43,160 @@
   </header>
 
   <main id="main-content">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <div class="badge-version">
-            <span class="badge-dot" aria-hidden="true"></span>
-            <span>v0.4.0 — Resilient Multi-Provider Inference</span>
-          </div>
-
+    <section class="home-hero">
+      <div class="container home-hero-grid">
+        <div class="home-hero-copy">
+          <p class="home-kicker">A public engineering notebook</p>
           <h1>Tiny Robot Lab</h1>
-          <p class="hero-phrase">Learn AI by building it.</p>
-          <p class="hero-desc">
-            A hands-on, non-commercial learning lab designed to explore how autonomous agents, dynamic orchestration, resilient multi-provider inference with graceful fallback, runtime observability, and Clean Architecture work in practice. No black boxes, no marketing hype—just working code and honest engineering tradeoffs.
+          <p class="hero-phrase">I build things to understand how they work.</p>
+          <p class="home-intro">
+            I’m Tom. Tiny Robot Lab is where I build things, examine the tradeoffs, and share what I learn. My current project is Tiny Agent Lab, where I’m learning how autonomous-agent systems work.
           </p>
-
           <div class="hero-actions">
-            <a href="https://lab.tinyrobotlab.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              <span>Launch the Lab</span>
-              <span aria-hidden="true">→</span>
-            </a>
-            <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-              <span>View on GitHub</span>
-            </a>
+            <a href="https://agents.tinyrobotlab.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Open Tiny Agent Lab</a>
+            <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Browse the source</a>
           </div>
         </div>
-
-        <div class="hero-visual">
-          <div class="avatar-frame">
-            <img src="assets/logo.png" alt="Tiny Robot Lab Mascot" class="hero-avatar-img" width="320" height="320">
-          </div>
+        <div class="home-robot">
+          <img src="assets/logo.png" alt="The Tiny Robot Lab mascot, a small friendly robot." class="home-robot-img" width="320" height="320">
         </div>
       </div>
     </section>
 
-    <!-- Project Purpose -->
-    <section class="section" style="padding-top: 40px; padding-bottom: 40px;">
-      <div class="container">
-        <div class="summary-box">
-          <p class="section-label">Why This Exists</p>
-          <h2 style="font-size: 1.5rem; margin-bottom: 12px;">Hands-On Engineering Over Abstract Descriptions</h2>
-          <p style="font-size: 1.0625rem; line-height: 1.7; color: var(--text-muted); max-width: 900px;">
-            Modern autonomous agents are often described with commercial hype or buried inside monolithic frameworks. Tiny Robot Lab was created to deconstruct these concepts by implementing them from scratch: asynchronous messaging queues, dynamic capability registration, heartbeat liveness policies, evidence-conditioned synthesis, provider-neutral inference fallback across multiple backends, and Clean Architecture boundaries.
+    <section class="container" aria-label="Project details">
+      <dl class="spec-strip">
+        <div>
+          <dt>Agent project</dt>
+          <dd>Tiny Agent Lab</dd>
+        </div>
+        <div>
+          <dt>Package version</dt>
+          <dd><code>0.4.0</code></dd>
+        </div>
+        <div>
+          <dt>License</dt>
+          <dd><code>AGPL-3.0-only</code></dd>
+        </div>
+        <div>
+          <dt>Source repository</dt>
+          <dd><a href="https://github.com/tomhalsan/autonomous-agent-lab" target="_blank" rel="noopener noreferrer">autonomous-agent-lab</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="home-section container" aria-labelledby="architecture-title">
+      <div class="home-section-heading">
+        <div>
+          <h2 id="architecture-title">A view of the moving parts</h2>
+        </div>
+        <p>The Tiny Agent Lab architecture diagram lays out the console, orchestration, transport, agents, and provider boundaries.</p>
+      </div>
+      <figure class="home-architecture">
+        <a href="assets/architecture.svg" target="_blank" rel="noopener noreferrer" aria-label="Open the full system architecture SVG">
+          <img src="assets/architecture.svg" alt="System architecture diagram showing the browser console, orchestrator layers, Redis transport and state, worker and research agent, and external provider boundaries." width="1200" height="960">
+        </a>
+        <figcaption>
+          <span>System architecture · Tiny Agent Lab</span>
+          <a href="assets/architecture.svg" target="_blank" rel="noopener noreferrer">Open the SVG</a>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="home-section home-why" aria-labelledby="why-title">
+      <div class="container home-why-grid">
+        <h2 id="why-title">Why I built this</h2>
+        <div>
+          <p>
+            For Tiny Agent Lab, I wanted to understand the work around a model call: how a task is routed, how agents communicate, and what the system does when a dependency fails. Reading about those ideas only goes so far, so I built a project where I could follow the code and observe the decisions.
+          </p>
+          <p>
+            Tiny Agent Lab is the result so far. I use this site to keep the diagrams, explanations, and mistakes close to the project—not to present it as a finished product.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Exploration Navigation Cards -->
-    <section class="section" style="border-top: none; padding-top: 0;">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-label">Explore The Lab</p>
-          <h2 class="section-title">What Would You Like to Learn?</h2>
-          <p class="section-lead">
-            Dive into dedicated learning sections covering our runtime mechanics, architectural boundaries, real engineering lessons, and roadmap.
-          </p>
+    <section class="home-section container" aria-labelledby="inside-title">
+      <div class="home-section-heading home-index-heading">
+        <div>
+          <h2 id="inside-title">Inside the Lab</h2>
         </div>
-
-        <div class="explore-grid">
-          <a href="how-it-works.html" class="explore-card">
-            <div class="card-icon" aria-hidden="true">⚡</div>
-            <h3>How It Works</h3>
-            <p>
-              Trace the end-to-end task lifecycle: capability determination, dynamic candidate discovery, availability evaluation, and multi-stage research evidence processing.
-            </p>
-            <span class="card-action">Read Runtime Flow <span aria-hidden="true">→</span></span>
-          </a>
-
-          <a href="architecture.html" class="explore-card">
-            <div class="card-icon" aria-hidden="true">📐</div>
-            <h3>Architecture</h3>
-            <p>
-              Inspect our full system architecture SVG and learn how Clean Architecture layer boundaries keep domain rules independent from Redis, Docker, and AI APIs.
-            </p>
-            <span class="card-action">Explore System Design <span aria-hidden="true">→</span></span>
-          </a>
-
-          <a href="learning.html" class="explore-card">
-            <div class="card-icon" aria-hidden="true">🔬</div>
-            <h3>Learning Philosophy</h3>
-            <p>
-              Our 6-step loop (Build, Observe, Break, Understand, Improve, Share) and honest lessons from production defects—including why 400+ tests don't guarantee correctness.
-            </p>
-            <span class="card-action">View Engineering Lessons <span aria-hidden="true">→</span></span>
-          </a>
-
-          <a href="roadmap.html" class="explore-card">
-            <div class="card-icon" aria-hidden="true">🗺️</div>
-            <h3>Roadmap &amp; Limits</h3>
-            <p>
-              A factual breakdown of released v0.4.0 capabilities, honest evaluation caveats, and our planned v0.5.0 roadmap for tool-using agents.
-            </p>
-            <span class="card-action">See Current State <span aria-hidden="true">→</span></span>
-          </a>
-        </div>
+        <p>Start with the runtime, inspect the structure, or read the learning record.</p>
       </div>
+      <ol class="home-index">
+        <li>
+          <a href="how-it-works.html">
+            <span class="home-index-number">01</span>
+            <span class="home-index-copy">
+              <strong>How It Works</strong>
+              <span>Follow task routing, execution, and the research pipeline.</span>
+            </span>
+            <span class="home-index-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="architecture.html">
+            <span class="home-index-number">02</span>
+            <span class="home-index-copy">
+              <strong>Architecture</strong>
+              <span>See the system diagram and its architectural boundaries.</span>
+            </span>
+            <span class="home-index-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="learning.html">
+            <span class="home-index-number">03</span>
+            <span class="home-index-copy">
+              <strong>Learning Through Building</strong>
+              <span>Read about the build loop, defects, and what they taught me.</span>
+            </span>
+            <span class="home-index-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="roadmap.html">
+            <span class="home-index-number">04</span>
+            <span class="home-index-copy">
+              <strong>Current Capabilities &amp; Roadmap</strong>
+              <span>Separate what is implemented from what is still planned.</span>
+            </span>
+            <span class="home-index-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ol>
     </section>
 
-    <!-- Current Lab Snapshot -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-label">Live Platform</p>
-          <h2 class="section-title">Current Lab at a Glance</h2>
-          <p class="section-lead">
-            The v0.4.0 release was gated with 940 automated tests passing in the repository.
+    <aside class="home-note" aria-labelledby="note-title">
+      <div class="container home-note-inner">
+        <p class="home-note-label">Engineering note</p>
+        <div>
+          <h2 id="note-title">A passing suite can still miss a cross-candidate bug.</h2>
+          <p>
+            In Tiny Agent Lab, a review of the research evidence scorer found that a stale loop variable could carry one candidate’s raw score into another. The fix and a regression test made that edge case explicit.
           </p>
-        </div>
-
-        <div class="facts-grid">
-          <div class="fact-card">
-            <div class="fact-metric">v0.4.0</div>
-            <h3 class="fact-title">Resilient Multi-Provider</h3>
-            <p class="fact-desc">
-              Provider-neutral inference with deterministic selection, graceful fallback across real cloud backends, and per-attempt telemetry.
-            </p>
-          </div>
-
-          <div class="fact-card">
-            <div class="fact-metric">2 Providers</div>
-            <h3 class="fact-title">Multiple Real Backends</h3>
-            <p class="fact-desc">
-              Google Gemini and Cloudflare Workers AI integrated interchangeably without vendor-locked domain logic.
-            </p>
-          </div>
-
-          <div class="fact-card">
-            <div class="fact-metric">940 Tests</div>
-            <h3 class="fact-title">v0.4.0 Release Gate</h3>
-            <p class="fact-desc">
-              Automated unit, contract, fallback traversal, failure simulation, and UI tests gating the v0.4.0 release without external dependencies.
-            </p>
-          </div>
-
-          <div class="fact-card">
-            <div class="fact-metric">Live UI</div>
-            <h3 class="fact-title">Prototype Console</h3>
-            <p class="fact-desc">
-              Inspect agent states, provider priority chains, fallback transition events, execution latency, and attributed findings.
-            </p>
-          </div>
-        </div>
-
-        <div style="margin-top: 36px; text-align: center;">
-          <a href="https://lab.tinyrobotlab.com" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-            <span>Experience the Working Prototype Console</span>
-            <span aria-hidden="true">→</span>
-          </a>
+          <a href="learning.html">Read the learning note <span aria-hidden="true">→</span></a>
         </div>
       </div>
-    </section>
+    </aside>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo-row">
-            <img src="assets/logo.png" alt="Tiny Robot Lab" class="footer-logo-img" width="28" height="28">
+            <img src="assets/logo.png" alt="" class="footer-logo-img" width="28" height="28">
             <span class="footer-brand-title">Tiny Robot Lab</span>
           </div>
           <p class="footer-desc">
-            A non-commercial learning project exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.
+            Tiny Robot Lab is my umbrella project for learning through hands-on software experiments. Tiny Agent Lab is its current autonomous-agent project.
           </p>
         </div>
 
         <div class="footer-links-group">
           <p class="footer-links-title">Resources</p>
-          <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
+          <a href="https://agents.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Open Tiny Agent Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
           <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
           <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
@@ -230,8 +206,8 @@
           <p class="footer-links-title">Learning Pages</p>
           <a href="how-it-works.html" class="footer-link">How It Works</a>
           <a href="architecture.html" class="footer-link">Architecture</a>
-          <a href="learning.html" class="footer-link">Learning Philosophy</a>
-          <a href="roadmap.html" class="footer-link">Roadmap &amp; Limits</a>
+          <a href="learning.html" class="footer-link">Learning Through Building</a>
+          <a href="roadmap.html" class="footer-link">Current Capabilities &amp; Roadmap</a>
         </div>
       </div>
 

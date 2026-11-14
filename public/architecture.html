@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>System Architecture &amp; Clean Boundaries — Tiny Robot Lab</title>
-  <meta name="description" content="Detailed system architecture and Clean Architecture layer boundaries of Tiny Robot Lab: separating domain logic from Redis, Docker, and AI providers.">
+  <meta name="description" content="A repository-grounded view of Tiny Agent Lab's services, architectural layers, ports, and adapters within the Tiny Robot Lab learning project.">
 
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="System Architecture &amp; Clean Boundaries — Tiny Robot Lab">
-  <meta property="og:description" content="Detailed system architecture and Clean Architecture layer boundaries of Tiny Robot Lab: separating domain logic from Redis, Docker, and AI providers.">
-  <meta property="og:url" content="https://lab.tinyrobotlab.com/architecture.html">
+  <meta property="og:description" content="A repository-grounded view of Tiny Agent Lab's services, architectural layers, ports, and adapters within the Tiny Robot Lab learning project.">
+  <meta property="og:url" content="https://tinyrobotlab.com/architecture.html">
   <meta property="og:image" content="assets/logo.png">
 
   <!-- Favicon Assets -->
@@ -29,10 +29,9 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home">
-        <img src="assets/logo.png" alt="Tiny Robot Lab Logo" class="brand-logo-img" width="40" height="40">
+        <img src="assets/logo.png" alt="" class="brand-logo-img" width="40" height="40">
         <div class="brand-text-block">
           <span class="brand-name">Tiny Robot Lab</span>
-          <span class="brand-tag">Learning Project</span>
         </div>
       </a>
 
@@ -42,47 +41,44 @@
         <a href="learning.html" class="nav-item">Learning</a>
         <a href="roadmap.html" class="nav-item">Roadmap</a>
         <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="nav-item" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://lab.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
-          <span>Launch Lab</span>
+        <a href="https://agents.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
+          <span>Open Tiny Agent Lab</span>
           <span aria-hidden="true">→</span>
         </a>
       </nav>
     </div>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="architecture-page">
     <div class="container">
       <header class="page-header">
-        <p class="section-label">System Design</p>
         <h1>System Architecture &amp; Clean Boundaries</h1>
         <p class="page-lead">
-          Tiny Robot Lab enforces Clean Architecture with strict inward dependency rules. External frameworks, transport brokers, and remote AI providers are adapters around stable domain rules and application use cases.
+          Tiny Agent Lab is the current autonomous-agent project within Tiny Robot Lab. Its service packages separate routing and research rules, application workflows, HTTP delivery, and infrastructure adapters.
         </p>
       </header>
 
       <!-- Architecture Vector Diagram -->
-      <section class="section" style="border-top: none; padding-top: 0;">
+      <section class="section architecture-section">
         <div class="section-header">
-          <p class="section-label">Visual Diagram</p>
           <h2 class="section-title">End-to-End System Topology</h2>
           <p class="section-lead">
-            The full runtime architecture spanning the operator browser, Prototype Console SPA, Orchestrator service, Redis transport, General Worker, and Research Agent microservices.
+            The full-system diagram follows the browser console through the Orchestrator, Redis, Worker, Research Agent, and external services.
           </p>
         </div>
 
         <figure class="architecture-frame">
-          <img src="assets/architecture.svg" alt="Autonomous Agent Lab System Architecture Diagram showing Console, Orchestrator, Redis, General Worker, and Research Agent" class="architecture-img" width="1200" height="960" loading="lazy">
+          <img src="assets/architecture.svg" alt="Tiny Agent Lab system architecture showing the console, Orchestrator, Redis, General Worker, and Research Agent" class="architecture-img" width="1200" height="960" loading="lazy">
           <figcaption class="arch-caption">
             <span>Figure 1: Full system architecture — Capability routing, Redis queues &amp; streams, and grounded inference.</span>
             <a href="assets/architecture.svg" target="_blank" rel="noopener noreferrer">Open full vector SVG diagram ↗</a>
           </figcaption>
         </figure>
 
-        <div class="section-header" style="margin-top: 48px;">
-          <p class="section-label">Visual Diagram</p>
+        <div class="section-header architecture-subsection-header">
           <h2 class="section-title">Inference Provider Selection &amp; Fallback Flow</h2>
           <p class="section-lead">
-            The v0.4.0 inference resilience loop spanning concurrent health checks, deterministic candidate ranking, provider invocation, fallback retry loops, and parallel operational telemetry streams.
+            This diagram shows per-task health probing, candidate ordering, provider invocation, eligible fallback, and operational telemetry.
           </p>
         </div>
 
@@ -96,61 +92,96 @@
       </section>
 
       <!-- Clean Architecture Layers -->
-      <section class="section">
+      <section class="section architecture-section">
         <div class="section-header">
-          <p class="section-label">Layer Isolation</p>
           <h2 class="section-title">The Four Architectural Layers</h2>
           <p class="section-lead">
-            Dependencies point strictly inward: Presentation and Infrastructure depend on Application, which depends on Domain. The Domain depends on nothing.
+            The Orchestrator contains all four layer directories. Worker and Research Agent packages use the application and infrastructure split for their runtime responsibilities.
           </p>
         </div>
 
-        <div class="card-grid">
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">1</div>
-            <h3 class="card-title">Domain Layer</h3>
-            <p class="card-desc">
-              Pure entities and business invariants with zero framework dependencies. Contains data contracts like <code>Task</code>, <code>AgentCapability</code>, <code>RoutingDecision</code>, and the <code>EvidenceEvaluator</code> ranking logic. It can be tested instantly without network access or databases.
-            </p>
-          </article>
+        <div class="architecture-layers">
+          <figure class="architecture-tree">
+            <figcaption>Selected repository paths</figcaption>
+            <pre><code>services/
+|-- orchestrator/src/orchestrator/
+|   |-- domain/
+|   |-- application/ports.py
+|   |-- presentation/api.py
+|   `-- infrastructure/redis_adapter.py
+|-- research_agent/src/research_agent/
+|   |-- domain/
+|   |-- application/ports.py
+|   `-- infrastructure/
+`-- worker/src/worker/
+    |-- application/ports.py
+    `-- infrastructure/
+packages/
+`-- contracts/src/agent_contracts/</code></pre>
+          </figure>
 
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">2</div>
-            <h3 class="card-title">Application Layer</h3>
-            <p class="card-desc">
-              Coordinates workflows and orchestration use cases such as <code>SubmitTask</code> and <code>FindCandidatesQuery</code>. Defines abstract ports (interfaces like <code>TaskDispatcher</code> and <code>StateReader</code>) without knowing whether they are implemented by Redis, HTTP, or memory fakes.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">3</div>
-            <h3 class="card-title">Presentation Layer</h3>
-            <p class="card-desc">
-              The delivery mechanism: FastAPI routes (<code>/api/tasks</code>, <code>/api/agents</code>, <code>/health</code>) and the browser-based Prototype Console SPA. Never interacts directly with domain logic; it passes inputs to application use cases and renders returned views.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">4</div>
-            <h3 class="card-title">Infrastructure Layer</h3>
-            <p class="card-desc">
-              Houses concrete implementations of application ports: Redis list queues, Redis stream publishers, Tavily web search clients, and provider-neutral inference connectors for Google Gemini and Cloudflare Workers AI. Adapters can be replaced or mocked without modifying business rules.
-            </p>
-          </article>
+          <ol class="architecture-layer-list">
+            <li>
+              <div>
+                <h3>Domain</h3>
+                <p><code>orchestrator/domain/</code> contains capability, routing, and selection rules. <code>research_agent/domain/</code> contains evidence evaluation and research result models.</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h3>Application</h3>
+                <p><code>orchestrator/application/</code> coordinates submission and queries; <code>research_agent/application/</code> coordinates research processing. Their <code>ports.py</code> modules declare the collaborators those workflows need.</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h3>Presentation</h3>
+                <p><code>orchestrator/presentation/api.py</code> exposes the HTTP API and serves the browser console.</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <h3>Infrastructure</h3>
+                <p><code>orchestrator/infrastructure/redis_adapter.py</code> implements Redis access. Research and Worker infrastructure packages hold provider, retrieval, and runtime adapters.</p>
+              </div>
+            </li>
+          </ol>
         </div>
 
-        <!-- Architectural Benefits -->
-        <div class="summary-box" style="margin-top: 36px;">
-          <h3 style="font-size: 1.25rem; margin-bottom: 12px; color: var(--text-main);">Why This Matters for Autonomous Agents</h3>
-          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 14px;">
-            AI frameworks frequently blur the line between model prompts, network transport, and business rules. By strictly enforcing Clean Architecture boundaries:
+        <aside class="architecture-boundary-note">
+          <h3>Where dependencies meet</h3>
+          <p>
+            Application ports are Python <code>Protocol</code>s. The Orchestrator's <code>create_app()</code> composes those ports with <code>RedisGateway</code>; tests also supply fakes and substitute inference providers. This shows dependency inversion at the seams, not a static rule that checks every import direction.
           </p>
-          <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; color: var(--text-muted);">
-            <li><strong>Replaceable AI Providers:</strong> Cloudflare Workers AI and Google Gemini demonstrate replaceable inference adapters behind shared application boundaries without changing existing domain rules.</li>
-            <li><strong>Graceful Provider Fallback:</strong> Agents can automatically traverse configured provider priority chains during fallback-eligible provider failures while preserving strict domain boundaries.</li>
-            <li><strong>Fast Deterministic Testing:</strong> The v0.4.0 release was gated with 940 automated tests running deterministically without requiring live infrastructure or external APIs, using lightweight in-memory fake ports and failure simulation adapters.</li>
-            <li><strong>Credential Isolation:</strong> All provider tokens remain strictly inside containerized infrastructure adapters and are never exposed to browser consoles or client payloads.</li>
-          </ul>
+        </aside>
+
+        <div class="architecture-evidence">
+          <h3>Ports in use</h3>
+          <div class="architecture-table-wrap">
+            <table class="architecture-table">
+              <caption>Application boundaries, concrete adapters, and repository evidence</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Port</th>
+                  <th scope="col">Implementation and verification</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><code>TaskDispatcher</code></th>
+                  <td><code>RedisGateway</code> in <code>orchestrator/infrastructure/redis_adapter.py</code> supplies dispatch. <code>create_app()</code> accepts a dispatcher or gateway; <code>tests/test_application.py</code> exercises <code>SubmitTask</code> with a <code>FakeTaskQueue</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>ResearchExecutor</code></th>
+                  <td><code>StubResearchExecutor</code>, <code>TavilyResearchExecutor</code>, and <code>McpTavilyResearchExecutor</code> are selected by <code>create_research_executor()</code>; <code>tests/test_research_agent.py</code> covers selection and Tavily behavior.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>InferenceProvider</code></th>
+                  <td>Research Agent's <code>StubInferenceProvider</code>, <code>CloudflareInferenceProvider</code>, and <code>GeminiInferenceProvider</code> share the <code>InferenceProvider</code> port. <code>tests/test_inference_interchangeability.py</code> checks substitution; <code>tests/test_provider_fallback_traversal.py</code> covers fallback.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </div>
@@ -162,17 +193,17 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo-row">
-            <img src="assets/logo.png" alt="Tiny Robot Lab" class="footer-logo-img" width="28" height="28">
+            <img src="assets/logo.png" alt="" class="footer-logo-img" width="28" height="28">
             <span class="footer-brand-title">Tiny Robot Lab</span>
           </div>
           <p class="footer-desc">
-            A non-commercial learning project exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.
+            Tiny Robot Lab is my umbrella project for learning through hands-on software experiments. Tiny Agent Lab is its current autonomous-agent project.
           </p>
         </div>
 
         <div class="footer-links-group">
           <p class="footer-links-title">Resources</p>
-          <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
+          <a href="https://agents.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Open Tiny Agent Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
           <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
           <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
@@ -182,8 +213,8 @@
           <p class="footer-links-title">Learning Pages</p>
           <a href="how-it-works.html" class="footer-link">How It Works</a>
           <a href="architecture.html" class="footer-link">Architecture</a>
-          <a href="learning.html" class="footer-link">Learning Philosophy</a>
-          <a href="roadmap.html" class="footer-link">Roadmap &amp; Limits</a>
+          <a href="learning.html" class="footer-link">Learning Through Building</a>
+          <a href="roadmap.html" class="footer-link">Current Capabilities &amp; Roadmap</a>
         </div>
       </div>
 

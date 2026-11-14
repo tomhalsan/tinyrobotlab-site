@@ -33,7 +33,7 @@
   <rect width="1200" height="960" fill="#ffffff" />
 
   <!-- Header -->
-  <text x="600.0" y="35" class="title" text-anchor="middle">Autonomous Agent Lab — System Architecture</text>
+  <text x="600.0" y="35" class="title" text-anchor="middle">Tiny Agent Lab — System Architecture</text>
   <text x="600.0" y="56" class="subtitle" text-anchor="middle">Capability-Routed Multi-Agent Platform with Asynchronous Redis Transport &amp; Grounded Inference</text>
 
   <rect x="480" y="78" width="240" height="36" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />

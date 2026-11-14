@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How Tiny Robot Works — Tiny Robot Lab</title>
-  <meta name="description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, multi-stage research evidence evaluation, and resilient multi-provider inference with fallback.">
+  <meta name="description" content="Runtime mechanics in Tiny Agent Lab, the current project within Tiny Robot Lab: task dispatch, research evidence evaluation, and inference fallback.">
 
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="How Tiny Robot Works — Tiny Robot Lab">
-  <meta property="og:description" content="Detailed runtime mechanics of Tiny Robot Lab: capability-driven dynamic orchestration, multi-stage research evidence evaluation, and resilient multi-provider inference with fallback.">
-  <meta property="og:url" content="https://lab.tinyrobotlab.com/how-it-works.html">
+  <meta property="og:description" content="Runtime mechanics in Tiny Agent Lab, the current project within Tiny Robot Lab: task dispatch, research evidence evaluation, and inference fallback.">
+  <meta property="og:url" content="https://tinyrobotlab.com/how-it-works.html">
   <meta property="og:image" content="assets/logo.png">
 
   <!-- Favicon Assets -->
@@ -29,10 +29,9 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home">
-        <img src="assets/logo.png" alt="Tiny Robot Lab Logo" class="brand-logo-img" width="40" height="40">
+        <img src="assets/logo.png" alt="" class="brand-logo-img" width="40" height="40">
         <div class="brand-text-block">
           <span class="brand-name">Tiny Robot Lab</span>
-          <span class="brand-tag">Learning Project</span>
         </div>
       </a>
 
@@ -42,223 +41,237 @@
         <a href="learning.html" class="nav-item">Learning</a>
         <a href="roadmap.html" class="nav-item">Roadmap</a>
         <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="nav-item" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://lab.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
-          <span>Launch Lab</span>
+        <a href="https://agents.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
+          <span>Open Tiny Agent Lab</span>
           <span aria-hidden="true">→</span>
         </a>
       </nav>
     </div>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="how-it-works-page">
     <div class="container">
       <header class="page-header">
-        <p class="section-label">Runtime Mechanics</p>
         <h1>How Tiny Robot Works</h1>
         <p class="page-lead">
-          Every task submitted to the platform moves through an explicit, visible state machine rather than an undocumented prompt chain. Here is how capability discovery, availability evaluation, and evidence-conditioned research operate step by step.
+          Tiny Agent Lab is the current project within Tiny Robot Lab. For capability-routed work, it assesses the task, checks for a capable ready agent, and dispatches to the agent's advertised target. An optional advisor can resolve ambiguous assessments; research and inference add their own evaluation and fallback stages.
         </p>
       </header>
 
       <!-- Section 1: Orchestration Flow -->
-      <section class="section" style="border-top: none; padding-top: 0;">
+      <section class="section how-it-works-section">
         <div class="section-header">
-          <p class="section-label">Step-by-Step Flow</p>
           <h2 class="section-title">1. Capability-Driven Task Dispatch</h2>
           <p class="section-lead">
-            In static systems, tasks are dumped into hardcoded worker queues. Tiny Robot Lab replaces static queues with dynamic candidate discovery and runtime availability checks.
+            The capability-driven path routes by advertised capability and current availability, rather than by a fixed worker identity.
           </p>
         </div>
 
-        <div class="flow-block">
-          <div class="flow-block-header">
-            <h3 class="flow-block-title">The 7-Stage Dispatch Lifecycle</h3>
-            <span class="badge-tag">Platform Foundation</span>
-          </div>
-          <div class="flow-steps">
-            <div class="flow-step"><span class="step-num">1</span> Prompt Input</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">2</span> Determine Capability</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">3</span> Candidate Discovery</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">4</span> Availability Check</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">5</span> Deterministic Routing</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">6</span> Target Dispatch</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">7</span> Execution &amp; Result</div>
-          </div>
-          <div class="flow-explainer">
-            <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
-              <li><strong>Prompt Input:</strong> An operator submits a natural-language task prompt via the Prototype Console or HTTP API.</li>
-              <li><strong>Capability Determination:</strong> The platform analyzes task intent and classifies the required capability (e.g., <code>general</code> or <code>research</code>).</li>
-              <li><strong>Candidate Discovery:</strong> The orchestrator queries registered agents to find all instances advertising support for the required capability.</li>
-              <li><strong>Availability Evaluation:</strong> Registered candidates are evaluated against liveness policies using heartbeat timestamps and execution state (distinguishing <code>ready</code>, <code>busy</code>, <code>stale</code>, and <code>offline</code>).</li>
-              <li><strong>Deterministic Routing:</strong> An eligible candidate is selected deterministically and an audit record of the routing decision is preserved.</li>
-              <li><strong>Target Dispatch:</strong> The task is dispatched to the chosen agent's dynamically advertised delivery target, with no assumed queue topology.</li>
-              <li><strong>Execution &amp; Result:</strong> The agent consumes the task, emits operational state transitions over Redis, and records the final output.</li>
-            </ol>
-          </div>
-        </div>
+        <ol class="technical-sequence">
+          <li>
+            <div>
+              <h3>Prompt submission</h3>
+              <p>An operator submits a natural-language task through the Prototype Console or HTTP API.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Capability assessment</h3>
+              <p>The deterministic router proposes <code>general</code> or <code>research</code> and records its assessment signals. If the assessment is ambiguous, a configured advisor may recommend the final capability.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Candidate discovery</h3>
+              <p>The orchestrator finds registered agents that advertise the required capability.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Availability evaluation</h3>
+              <p>Heartbeat age and execution state distinguish <code>ready</code>, <code>busy</code>, <code>stale</code>, and <code>offline</code> agents. Only eligible candidates proceed.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Deterministic selection</h3>
+              <p>Default candidate ordering is deterministic by agent ID. The routing decision records the selected candidate and its rationale.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Target dispatch</h3>
+              <p>The capability-driven path sends the task to the selected agent's advertised target. A static-enqueue path remains for legacy non-dynamic configuration and backward-compatible tests.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Execution and result</h3>
+              <p>The agent processes the task and returns its output. Operational events carry state changes and related runtime details.</p>
+            </div>
+          </li>
+        </ol>
       </section>
 
       <!-- Section 2: Research Execution Flow -->
-      <section class="section">
+      <section class="section how-it-works-section">
         <div class="section-header">
-          <p class="section-label">Specialist Agent</p>
           <h2 class="section-title">2. Grounded Research Execution Pipeline</h2>
           <p class="section-lead">
-            When a task requires research, asking an LLM to search and summarize in a single prompt invites hallucinations and opaque failures. The Research Agent breaks execution into discrete, observable stages.
+            With the Tavily-backed executor, search results are normalized into candidate evidence and evaluated before synthesis. Synthesis runs when an inference provider is configured, and the task result retains evaluated source records.
           </p>
         </div>
 
-        <div class="flow-block">
-          <div class="flow-block-header">
-            <h3 class="flow-block-title">Multi-Stage Evidence Pipeline</h3>
-            <span class="badge-tag">Research Agent</span>
-          </div>
-          <div class="flow-steps">
-            <div class="flow-step"><span class="step-num">1</span> Public Web Retrieval</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">2</span> Candidate Evidence</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">3</span> Quality Evaluation</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">4</span> Conditioned Synthesis</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">5</span> Attributed Findings</div>
-          </div>
-          <div class="flow-explainer">
-            <p style="margin-bottom: 12px;">
-              <strong>How evidence is evaluated and retained:</strong>
-            </p>
-            <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 10px;">
-              <li><strong>Retrieval:</strong> The research query is sent to a web retrieval adapter (e.g., Tavily), returning raw search snippets and candidate URLs.</li>
-              <li><strong>Candidate Evidence Normalization:</strong> Each snippet is structured with its source URL, page title, textual snippet, and provider relevance indicators.</li>
-              <li><strong>Deterministic Evidence Evaluation:</strong> Before any generative LLM is invoked, pure Python domain logic scores evidence-ranking signals: domain authority tiers, topical keyword density, content length, and snippet freshness. Weak or irrelevant items are discarded.</li>
-              <li><strong>Conditioned Synthesis:</strong> The inference model receives strictly the retained evidence items and is instructed to synthesize findings based exclusively on those sources.</li>
-              <li><strong>Attributed Findings:</strong> The synthesized response includes structured source citations, allowing learners and operators to inspect which evidence drove each finding.</li>
-            </ul>
-          </div>
-        </div>
+        <ol class="technical-sequence">
+          <li>
+            <div>
+              <h3>Web retrieval</h3>
+              <p>A configured Tavily executor sends the prompt to Tavily Search, directly or through its MCP adapter. Results may include URLs, titles, snippets, relevance scores, and publication dates.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Candidate normalization</h3>
+              <p>The result processor maps each item to candidate evidence, preserving its URL, title, snippet, provider score, and publication date when supplied.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Evidence evaluation</h3>
+              <p>The evaluator filters invalid or duplicate URLs, promotional material, and short snippets. It ranks the remaining items using domain authority, query-keyword relevance, cross-domain keyword overlap, provider score, and explicit publication-date recency.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Grounded synthesis</h3>
+              <p>When an inference provider is configured, the Research Agent passes formatted evidence to synthesis. A Tavily-supplied summary is included when present; the inference prompt asks the model to rely on supplied material and cite its URLs.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Attributed result</h3>
+              <p>When synthesis runs, the result retains evaluated source records alongside the answer. The prompt requests a concise Sources section with the available URLs.</p>
+            </div>
+          </li>
+        </ol>
 
-        <!-- Terminology & Limitations Caveat -->
-        <div class="caveat-box" style="margin-top: 32px;">
+        <aside class="caveat-box engineering-note">
           <div class="caveat-heading">
-            <span aria-hidden="true">⚠️</span>
-            <span>Important Distinction: Evaluated Evidence vs. Factual Truth</span>
+            <span>Caveat: evaluated evidence is not factual truth</span>
           </div>
           <ul class="caveat-list">
-            <li><strong>Evaluated evidence is not "verified proof."</strong> Our <code>EvidenceEvaluator</code> applies heuristic ranking signals (domain tier, keyword overlap, content length) to filter noise. It does not possess mathematical proof of factual accuracy.</li>
-            <li><strong>Cross-domain keyword overlap is not semantic corroboration.</strong> Two independent websites sharing similar vocabulary may simply be repeating the same press release or common phrasing.</li>
+            <li><strong>Evaluated evidence is not verified proof.</strong> <code>EvidenceEvaluator</code> filters and ranks candidates using heuristics; it does not establish factual accuracy.</li>
+            <li><strong>Cross-domain keyword overlap is not corroboration.</strong> Separate sites may repeat the same source or phrasing.</li>
             <li><strong>Retrieval quality is bounded by the provider.</strong> If the upstream retrieval API returns low-quality or irrelevant candidates, the downstream evaluation and synthesis cannot manufacture better source material.</li>
           </ul>
-        </div>
+        </aside>
       </section>
 
       <!-- Section 3: Multi-Provider Inference & Fallback Flow -->
-      <section class="section">
+      <section class="section how-it-works-section">
         <div class="section-header">
-          <p class="section-label">Resilience Loop</p>
           <h2 class="section-title">3. Resilient Multi-Provider Inference &amp; Fallback</h2>
           <p class="section-lead">
-            Relying on a single AI provider creates an immediate single point of failure. When an agent requires inference, it evaluates an ordered priority chain of configured providers with automatic, graceful fallback.
+            Provider configuration, live health, candidate selection, and invocation success are distinct runtime facts.
           </p>
         </div>
 
-        <div class="flow-block">
-          <div class="flow-block-header">
-            <h3 class="flow-block-title">The Inference Lifecycle</h3>
-            <span class="badge-tag">v0.4.0 Architecture</span>
-          </div>
-          <div class="flow-steps">
-            <div class="flow-step"><span class="step-num">1</span> Configured Providers</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">2</span> Per-Task Health</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">3</span> Deterministic Selection</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">4</span> Provider Invocation</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">5</span> Fallback or Success</div>
-            <div class="flow-arrow" aria-hidden="true">→</div>
-            <div class="flow-step"><span class="step-num">6</span> Result &amp; Telemetry</div>
-          </div>
-          <div class="flow-explainer">
-            <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
-              <li><strong>Configured Priority Chain:</strong> Providers are configured in preference order (e.g., <code>Provider A → Provider B</code>). Concrete provider instances are validated at service startup without performing premature inference calls.</li>
-              <li><strong>Per-Task Health Observation:</strong> Before candidate selection, the agent probes configured providers concurrently with bounded timeouts. Probes return authentic point-in-time snapshots; failed or timed-out probes yield no snapshot.</li>
-              <li><strong>Deterministic Provider Selection:</strong> Verified healthy providers are ranked first in configured priority order. Providers that are unavailable or unknown are excluded from selection.</li>
-              <li><strong>Provider Invocation:</strong> The agent invokes the top candidate to generate completions or synthesize research findings. Latency is measured strictly around the provider network call.</li>
-              <li><strong>Success or Eligible Fallback:</strong> If the model call succeeds, the result is processed immediately. If a fallback-eligible provider failure occurs and another candidate is available, execution advances to the next provider in the fallback loop.</li>
-              <li><strong>Result &amp; Operational Telemetry:</strong> Each invocation emits exactly one attempt telemetry record over Redis, and provider transitions publish fallback events. If all candidates are exhausted or an ineligible error occurs, execution terminates with a clean error.</li>
-            </ol>
-          </div>
-        </div>
+        <ol class="technical-sequence">
+          <li>
+            <div>
+              <h3>Configured providers</h3>
+              <p>Provider adapters are mapped by name, and a configured preference order determines their relative priority.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Per-task health probes</h3>
+              <p>Before selection, configured providers are probed concurrently with bounded timeouts. A failed or timed-out probe yields no health snapshot.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Provider selection</h3>
+              <p>Healthy providers rank ahead of degraded providers; a degraded provider can still be selected if no healthy one is available. Rate-limited, quota-exhausted, unavailable, and unobserved providers are excluded.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Provider invocation</h3>
+              <p>The selected adapter performs the inference call. The recorded latency surrounds the provider call, not only its network request.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Eligible fallback</h3>
+              <p>Only fallback-eligible errors advance execution to the next candidate. Other errors, or exhaustion of the candidate list, end the attempt with an error.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Result and telemetry</h3>
+              <p>The coordinator constructs telemetry for each provider attempt and a transition event when it falls back. Event delivery is best-effort.</p>
+            </div>
+          </li>
+        </ol>
 
-        <!-- Truthfulness Distinction -->
-        <div class="caveat-box" style="margin-top: 32px;">
+        <aside class="caveat-box engineering-note">
           <div class="caveat-heading">
-            <span aria-hidden="true">💡</span>
-            <span>Core Architectural Truths</span>
+            <span>Engineering axiom</span>
           </div>
           <ul class="caveat-list">
-            <li><strong>Configured ≠ Healthy.</strong> Static presence in configuration proves only that credentials or options were provided at startup. It does not prove the remote endpoint is currently reachable.</li>
-            <li><strong>Selected ≠ Successful.</strong> Ranking as the top candidate does not guarantee inference will succeed. Live network drops and upstream capacity spikes can happen at any moment.</li>
-            <li><strong>Unknown ≠ Healthy.</strong> If a health probe times out or fails, health remains unknown. The platform never assumes or fabricates a healthy state.</li>
+            <li><strong>Configured != Healthy.</strong> Configuration sets provider options and preference; it does not establish current health.</li>
+            <li><strong>Selected != Successful.</strong> A provider can be selected and still fail when invoked.</li>
+            <li><strong>Unknown != Healthy.</strong> A failed probe provides no snapshot, so the provider is not assumed to be healthy.</li>
           </ul>
-        </div>
+        </aside>
       </section>
 
       <!-- Section 4: Observability -->
-      <section class="section">
+      <section class="section how-it-works-section">
         <div class="section-header">
-          <p class="section-label">Transparency</p>
           <h2 class="section-title">4. Observable AI in Practice</h2>
           <p class="section-lead">
-            Every transition is visible. Instead of wondering why a task was routed to an agent, which inference provider was used, or why a candidate was skipped, the platform records structured decision and execution context.
+            Routing records, task results, and operational events expose concrete parts of each run.
           </p>
         </div>
 
-        <div class="card-grid">
-          <div class="card">
-            <h3 class="card-title">Routing Decisions</h3>
-            <p class="card-desc">
-              Every task dispatch logs the resolved capability, the candidate pool evaluated, candidate availability states, and the deterministic reason for selection.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Heartbeat Liveness</h3>
-            <p class="card-desc">
-              Agents emit periodic heartbeat signals. Stale agents (&gt;30s) and offline agents (&gt;90s) are automatically disqualified from work without restarting services.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Inference Attempt Telemetry</h3>
-            <p class="card-desc">
-              Every provider invocation emits a structured telemetry record capturing provider name, model, invocation latency in milliseconds, attempt index, and sanitized status.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Fallback Transition Events</h3>
-            <p class="card-desc">
-              When execution switches from a failed provider to a backup candidate, a structured fallback event captures the transition, displayed live in the Prototype Console activity timeline.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Task Result Metadata</h3>
-            <p class="card-desc">
-              Successful task results display formatted markdown, attributed citation links, and execution metadata showing the successful provider, model (when known), latency, and attempt number.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">State &amp; Event Streams</h3>
-            <p class="card-desc">
-              Operational events stream asynchronously over Redis Streams and Hashes for live browser observability without blocking or slowing task execution.
-            </p>
-          </div>
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <caption>Runtime signals and the evidence they expose</caption>
+            <thead>
+              <tr>
+                <th scope="col">Signal</th>
+                <th scope="col">Recorded or displayed evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Routing decision</th>
+                <td>The assessed capability, selected agent and dispatch target, and the decision rationale.</td>
+              </tr>
+              <tr>
+                <th scope="row">Agent availability</th>
+                <td>Heartbeat age and execution state inform <code>ready</code>, <code>busy</code>, <code>stale</code>, and <code>offline</code> status. Only <code>ready</code> agents are eligible; default stale and offline thresholds are 30 and 90 seconds, and are configurable.</td>
+              </tr>
+              <tr>
+                <th scope="row">Inference attempt</th>
+                <td>Provider, attempt index, latency, and status; model and token fields are optional.</td>
+              </tr>
+              <tr>
+                <th scope="row">Fallback transition</th>
+                <td>Failed and next provider, reason, and attempt index. The Prototype Console displays transition events in its activity timeline.</td>
+              </tr>
+              <tr>
+                <th scope="row">Task result</th>
+                <td>The Console formats the output and displays provider, model when present, latency, and attempt metadata when telemetry is available.</td>
+              </tr>
+              <tr>
+                <th scope="row">Operational events</th>
+                <td><code>AgentEvent</code> records are published to the Redis stream <code>agent.events</code> and can carry state, routing decisions, fallback transitions, and inference telemetry.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </div>
@@ -270,17 +283,17 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo-row">
-            <img src="assets/logo.png" alt="Tiny Robot Lab" class="footer-logo-img" width="28" height="28">
+            <img src="assets/logo.png" alt="" class="footer-logo-img" width="28" height="28">
             <span class="footer-brand-title">Tiny Robot Lab</span>
           </div>
           <p class="footer-desc">
-            A non-commercial learning project exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.
+            Tiny Robot Lab is my umbrella project for learning through hands-on software experiments. Tiny Agent Lab is its current autonomous-agent project.
           </p>
         </div>
 
         <div class="footer-links-group">
           <p class="footer-links-title">Resources</p>
-          <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
+          <a href="https://agents.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Open Tiny Agent Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
           <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
           <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
@@ -290,8 +303,8 @@
           <p class="footer-links-title">Learning Pages</p>
           <a href="how-it-works.html" class="footer-link">How It Works</a>
           <a href="architecture.html" class="footer-link">Architecture</a>
-          <a href="learning.html" class="footer-link">Learning Philosophy</a>
-          <a href="roadmap.html" class="footer-link">Roadmap &amp; Limits</a>
+          <a href="learning.html" class="footer-link">Learning Through Building</a>
+          <a href="roadmap.html" class="footer-link">Current Capabilities &amp; Roadmap</a>
         </div>
       </div>
 
