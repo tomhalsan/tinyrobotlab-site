@@ -7,6 +7,8 @@
 
     if (!navToggle || !primaryNav) return;
 
+    document.documentElement.classList.add('has-mobile-nav');
+
     function setMenuState(isOpen) {
       navToggle.setAttribute('aria-expanded', String(isOpen));
       navToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');

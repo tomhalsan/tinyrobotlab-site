@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Learning Philosophy &amp; Real Lessons — Tiny Robot Lab</title>
-  <meta name="description" content="The learning philosophy of Tiny Robot Lab: our 6-step build loop and honest engineering lessons from real production defects like the Issue #9 stale-candidate evaluator bug.">
+  <title>Learning Through Building — Tiny Robot Lab</title>
+  <meta name="description" content="How I learn by building, observing, correcting, and documenting Tiny Agent Lab as part of the broader Tiny Robot Lab learning project.">
 
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Learning Philosophy &amp; Real Lessons — Tiny Robot Lab">
-  <meta property="og:description" content="The learning philosophy of Tiny Robot Lab: our 6-step build loop and honest engineering lessons from real production defects like the Issue #9 stale-candidate evaluator bug.">
-  <meta property="og:url" content="https://lab.tinyrobotlab.com/learning.html">
+  <meta property="og:title" content="Learning Through Building — Tiny Robot Lab">
+  <meta property="og:description" content="How I learn by building, observing, correcting, and documenting Tiny Agent Lab as part of the broader Tiny Robot Lab learning project.">
+  <meta property="og:url" content="https://tinyrobotlab.com/learning.html">
   <meta property="og:image" content="assets/logo.png">
 
   <!-- Favicon Assets -->
@@ -30,10 +30,9 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="index.html" class="brand-link" aria-label="Tiny Robot Lab Home">
-        <img src="assets/logo.png" alt="Tiny Robot Lab Logo" class="brand-logo-img" width="40" height="40">
+        <img src="assets/logo.png" alt="" class="brand-logo-img" width="40" height="40">
         <div class="brand-text-block">
           <span class="brand-name">Tiny Robot Lab</span>
-          <span class="brand-tag">Learning Project</span>
         </div>
       </a>
 
@@ -55,134 +54,103 @@
         <a href="learning.html" class="nav-item active" aria-current="page">Learning</a>
         <a href="roadmap.html" class="nav-item">Roadmap</a>
         <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="nav-item" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://lab.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
-          <span>Launch Lab</span>
+        <a href="https://agents.tinyrobotlab.com" class="nav-btn" target="_blank" rel="noopener noreferrer">
+          <span>Open Tiny Agent Lab</span>
           <span aria-hidden="true">→</span>
         </a>
       </nav>
     </div>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="learning-page">
     <div class="container">
       <header class="page-header">
-        <p class="section-label">Engineering Method</p>
-        <h1>Learning Philosophy &amp; Real Lessons</h1>
+        <h1>Learning Through Building</h1>
         <p class="page-lead">
-          We learn best by building systems ourselves, observing how they behave under stress, and documenting what actually happened. Mistakes and corrections are intentionally part of the learning record.
+          I build, observe what happens, follow failures to their causes, and document what changes. Tiny Robot Lab is my umbrella learning project; Tiny Agent Lab is the current project I am learning from and writing about.
         </p>
       </header>
 
-      <!-- Section 1: The 6-Step Loop -->
-      <section class="section" style="border-top: none; padding-top: 0;">
-        <div class="section-header">
-          <p class="section-label">Our Core Loop</p>
-          <h2 class="section-title">The 6-Step Learning Discipline</h2>
-          <p class="section-lead">
-            Every feature in Tiny Robot Lab follows this iterative loop to ensure we understand the engineering reality, not just the happy path.
+      <section class="section learning-story" aria-labelledby="issue-9-title">
+        <article class="learning-note">
+          <p class="learning-note-meta">
+            Lab note 01 /
+            <a href="https://github.com/tomhalsan/autonomous-agent-lab/issues/9" target="_blank" rel="noopener noreferrer">Issue #9</a>
+            · Review in
+            <a href="https://github.com/tomhalsan/autonomous-agent-lab/pull/103" target="_blank" rel="noopener noreferrer">PR #103</a>
           </p>
-        </div>
+          <h2 id="issue-9-title">A source inherited another candidate's raw score</h2>
 
-        <div class="philosophy-grid">
-          <div class="philosophy-stack">
-            <div class="philosophy-step">
-              <span class="philosophy-step-num">01</span>
-              <div>
-                <strong>Build it.</strong>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Write clean, test-driven implementations using pure domain contracts and minimal abstractions.</p>
-              </div>
-            </div>
-            <div class="philosophy-step">
-              <span class="philosophy-step-num">02</span>
-              <div>
-                <strong>Observe it.</strong>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Stream real events, heartbeat liveness, and routing decisions to make internal state visible.</p>
-              </div>
-            </div>
-            <div class="philosophy-step">
-              <span class="philosophy-step-num">03</span>
-              <div>
-                <strong>Break it.</strong>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Stress the system with network latency, heartbeat pauses, invalid metadata, and noisy data.</p>
-              </div>
-            </div>
-            <div class="philosophy-step">
-              <span class="philosophy-step-num">04</span>
-              <div>
-                <strong>Understand why.</strong>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Analyze failure modes down to root causes rather than patching symptoms with superficial hacks.</p>
-              </div>
-            </div>
-            <div class="philosophy-step">
-              <span class="philosophy-step-num">05</span>
-              <div>
-                <strong>Improve it.</strong>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Refine architectural boundaries, tighten contracts, and add targeted regression coverage.</p>
-              </div>
-            </div>
-            <div class="philosophy-step">
-              <span class="philosophy-step-num">06</span>
-              <div>
-                <strong>Share what we learned.</strong>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">Document the tradeoff, the bug, and the reasoning openly for the benefit of other learners.</p>
-              </div>
-            </div>
+          <h3>What happened?</h3>
+          <p>
+            While I was building Tiny Agent Lab's Issue #9 source-quality evaluator, an independent architecture review of the initial implementation found a ranking bug. A stale loop variable in the final ranking phase could cause a retained source to inherit another candidate's provider-relevance <code>raw_score</code>.
+          </p>
+
+          <h3>Why did the tests miss it?</h3>
+          <p>
+            The PR history records the review finding and the targeted regression tests added afterward, but does not identify a more specific gap in the earlier tests. The new test gives two candidates different raw scores, evaluates them in both input orders, and compares their resulting ranks.
+          </p>
+
+          <h3>What changed?</h3>
+          <p>
+            The evaluator now keeps raw scores by URL and looks up the score belonging to each item during ranking. The regression test makes order invariance explicit:
+          </p>
+          <div class="learning-evidence">
+            <figure>
+              <figcaption>Per-item score lookup in <code>EvidenceEvaluator</code></figcaption>
+              <pre><code>item_raw_score = url_to_raw_score.get(item.url)</code></pre>
+              <a href="https://github.com/tomhalsan/autonomous-agent-lab/blob/1e8cb10/services/research_agent/src/research_agent/domain/evaluator.py#L278" target="_blank" rel="noopener noreferrer">View evaluator source</a>
+            </figure>
+            <figure>
+              <figcaption>Regression assertion for reversed input order</figcaption>
+              <pre><code>assert [r.rank_score for r in res_hl] == [r.rank_score for r in res_lh]</code></pre>
+              <a href="https://github.com/tomhalsan/autonomous-agent-lab/blob/1e8cb10/tests/test_research_agent.py#L2335" target="_blank" rel="noopener noreferrer">View regression test</a>
+            </figure>
           </div>
 
-          <!-- Section 2: Case Study -->
-          <div class="philosophy-story">
-            <h3>Case Study: The Issue #9 Stale-Candidate Raw Score Bug</h3>
+          <aside class="learning-takeaway">
+            <h3>What I learned</h3>
             <p>
-              In educational engineering, hiding bugs creates a false illusion of simplicity. In reality, distributed systems and evaluation pipelines fail in subtle, instructive ways.
+              Passing tests and review are both evidence, not proof. Here, review surfaced an interaction the earlier tests had not pinned down. The regression test narrows that gap; it does not prove the evaluator correct for every input.
             </p>
-            <p>
-              During the development of our research pipeline, the implementation had <strong>hundreds of passing automated tests</strong>. However, an independent architectural review identified a critical bug in the <code>EvidenceEvaluator</code>: during candidate scoring and final ranking, a stale loop variable meant retained evidence items could inadvertently inherit another candidate's provider relevance <code>raw_score</code>.
-            </p>
-            <p>
-              The existing test suite passed cleanly because test assertions only exercised single-candidate or uniform-score scenarios; the tests did not know to probe cross-candidate score contamination. Once identified, the evaluator logic was corrected, and targeted regression tests were added to guarantee isolation across candidates.
-            </p>
-            <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid var(--accent-cyan); padding: 14px; border-radius: var(--radius-sm); margin-top: 8px;">
-              <p style="font-size: 0.9375rem; color: var(--text-main); font-weight: 600;">
-                The Engineering Takeaway:
-              </p>
-              <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 4px;">
-                Passing tests are evidence of correctness, not mathematical proof. Independent review can uncover subtle edge cases that existing test suites did not know to exercise. Neither automated tests nor AI reviews guarantee correctness on their own; robust systems require multi-layered verification and critical scrutiny.
-              </p>
-            </div>
-          </div>
-        </div>
+          </aside>
+        </article>
       </section>
 
-      <!-- Section 3: Principles for Learners -->
-      <section class="section">
+      <section class="section learning-cycle" aria-labelledby="learning-cycle-title">
         <div class="section-header">
-          <p class="section-label">Core Principles</p>
-          <h2 class="section-title">Guiding Principles for Learners</h2>
-          <p class="section-lead">
-            What we recommend to anyone building or researching autonomous agent systems.
-          </p>
+          <h2 class="section-title" id="learning-cycle-title">The loop I return to</h2>
+          <p class="section-lead">A short cycle for turning a change into a checked, documented lesson.</p>
         </div>
+        <ol class="learning-loop">
+          <li><span>01</span><strong>Build</strong></li>
+          <li><span>02</span><strong>Observe</strong></li>
+          <li><span>03</span><strong>Break</strong></li>
+          <li><span>04</span><strong>Understand</strong></li>
+          <li><span>05</span><strong>Improve</strong></li>
+          <li><span>06</span><strong>Document</strong></li>
+        </ol>
+      </section>
 
-        <div class="card-grid">
-          <div class="card">
-            <h3 class="card-title">Avoid Framework Monoliths Early</h3>
-            <p class="card-desc">
-              Do not start with heavyweight all-in-one agent libraries. Building message queues, state machines, and dispatch loops directly teaches you how the protocol actually works.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Make State Observable</h3>
-            <p class="card-desc">
-              If an agent makes a decision or transitions to an error state, log the structured event immediately. You cannot debug distributed agents if execution is trapped inside a prompt.
-            </p>
-          </div>
-          <div class="card">
-            <h3 class="card-title">Separate Ranking From Truth</h3>
-            <p class="card-desc">
-              Deterministic evidence heuristics (like domain authority or keyword matches) help filter noise, but they do not prove factual ground truth. Be honest about system limits.
-            </p>
-          </div>
+      <section class="section learning-guardrails" aria-labelledby="guardrails-title">
+        <div class="section-header">
+          <h2 class="section-title" id="guardrails-title">Architectural guardrails I use</h2>
+          <p class="section-lead">These are practices I can point to in the current Tiny Agent Lab codebase.</p>
         </div>
+        <ol class="learning-guardrail-list">
+          <li>
+            <h3>Keep boundaries replaceable</h3>
+            <p>The Research Agent defines <code>ResearchExecutor</code> and <code>InferenceProvider</code> ports separately from their implementations. Tests cover executor selection and provider substitution.</p>
+          </li>
+          <li>
+            <h3>Treat scores as evidence, not truth</h3>
+            <p>The Issue #9 evaluator records quality signals and ranking rationale. <a href="https://github.com/tomhalsan/autonomous-agent-lab/pull/103" target="_blank" rel="noopener noreferrer">PR #103</a> frames these as ranking aids, not proof of factual truth.</p>
+          </li>
+          <li>
+            <h3>Test order-sensitive assumptions</h3>
+            <p>The Issue #9 regression test reverses candidate order with different provider scores and asserts that the ranked results remain unchanged.</p>
+          </li>
+        </ol>
       </section>
     </div>
   </main>
@@ -193,17 +161,17 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="footer-logo-row">
-            <img src="assets/logo.png" alt="Tiny Robot Lab" class="footer-logo-img" width="28" height="28">
+            <img src="assets/logo.png" alt="" class="footer-logo-img" width="28" height="28">
             <span class="footer-brand-title">Tiny Robot Lab</span>
           </div>
           <p class="footer-desc">
-            A non-commercial learning project exploring autonomous agents, dynamic orchestration, grounded research, observability, and Clean Architecture.
+            Tiny Robot Lab is my umbrella project for learning through hands-on software experiments. Tiny Agent Lab is its current autonomous-agent project.
           </p>
         </div>
 
         <div class="footer-links-group">
           <p class="footer-links-title">Resources</p>
-          <a href="https://lab.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Launch Lab Console</a>
+          <a href="https://agents.tinyrobotlab.com" class="footer-link" target="_blank" rel="noopener noreferrer">Open Tiny Agent Lab Console</a>
           <a href="https://github.com/tomhalsan/autonomous-agent-lab" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
           <a href="assets/architecture.svg" class="footer-link" target="_blank" rel="noopener noreferrer">System Architecture SVG</a>
           <a href="assets/inference-provider-flow.svg" class="footer-link" target="_blank" rel="noopener noreferrer">Inference Resilience Flow SVG</a>
@@ -213,8 +181,8 @@
           <p class="footer-links-title">Learning Pages</p>
           <a href="how-it-works.html" class="footer-link">How It Works</a>
           <a href="architecture.html" class="footer-link">Architecture</a>
-          <a href="learning.html" class="footer-link">Learning Philosophy</a>
-          <a href="roadmap.html" class="footer-link">Roadmap &amp; Limits</a>
+          <a href="learning.html" class="footer-link">Learning Through Building</a>
+          <a href="roadmap.html" class="footer-link">Current Capabilities &amp; Roadmap</a>
         </div>
       </div>
 
